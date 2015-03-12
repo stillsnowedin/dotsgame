@@ -3,9 +3,9 @@ package dotsGame.views.components {
 	import flash.geom.Point;
 	
 	public class ColorButton extends Button {
-		private var upColor:uint;
-		private var overColor:uint;
-		private var downColor:uint;
+		protected var upColor:uint;
+		protected var overColor:uint;
+		protected var downColor:uint;
 		
 		public function ColorButton(upColor:uint, overColor:uint, downColor:uint):void {
 			this.upColor = upColor;
@@ -21,7 +21,7 @@ package dotsGame.views.components {
 			setBackgroundTo(up);
 		}
 		
-		private function createBackgrounds():void {
+		protected function createBackgrounds():void {
 			up = BasicShapes.createRoundRectangle(bgWidth, bgHeight, upColor);
 			over = BasicShapes.createRoundRectangle(bgWidth, bgHeight, overColor);
 			down = BasicShapes.createRoundRectangle(bgWidth, bgHeight, downColor);

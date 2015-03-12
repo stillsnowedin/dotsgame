@@ -15,6 +15,15 @@ package dotsGame.views.components {
 			return colorButton;
 		}
 		
+		public static function rectangleButton(upColor:uint, overColor:uint, downColor:uint, 
+										   	   dimensions:Point, position:Point):RectangleButton {
+			var rectangleButton:RectangleButton = new RectangleButton(upColor, overColor, downColor);
+			rectangleButton.setSize(dimensions.x, dimensions.y);
+			rectangleButton.x = position.x;
+			rectangleButton.y = position.y;
+			return rectangleButton;
+		}
+		
 		public static function textField(text:String, format:TextFormat, dimensions:Point, position:Point):TextField {
 			var textField:TextField = new TextField();
 			textField.embedFonts = true;

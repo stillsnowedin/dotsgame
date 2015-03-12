@@ -1,4 +1,5 @@
 package dotsGame.models {
+	import dotsGame.views.Grid;
 	import dotsGame.views.Menu;
 	import dotsGame.views.Status;
 
@@ -6,9 +7,9 @@ package dotsGame.models {
 	import flash.utils.Dictionary;
 	
 	public class ActiveViews {
-		
 		private const MENU:String = "MENU";
 		private const STATUS:String = "STATUS";
+		private const GRID:String = "GRID";
 		private var activeViews:Dictionary;
 		
 		public function ActiveViews():void {
@@ -21,6 +22,10 @@ package dotsGame.models {
 		
 		public function getStatus():Sprite {
 			return get(STATUS, Status);
+		}
+		
+		public function getGrid():Sprite {
+			return get(GRID, Grid);
 		}
 		
 		private function get(name:String, type:Class):Sprite {

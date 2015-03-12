@@ -1,5 +1,4 @@
 package dotsGame.views {
-	import dotsGame.bundles.MenuAssetBundle;
 	import dotsGame.views.components.ColorButton;
 	import dotsGame.views.components.Components;
 
@@ -18,7 +17,6 @@ package dotsGame.views {
 		private var buttonHandlers:Vector.<Function> = new <Function>[startClicked, 
 																	  optionsClicked, 
 																	  quitClicked];
-		private var assets:MenuAssetBundle;
 		public var startGame:Signal;
 		public var openOptions:Signal;
 		public var quitGame:Signal;
@@ -29,8 +27,7 @@ package dotsGame.views {
 			quitGame = new Signal();
 		}
 		
-		public function init(assets:MenuAssetBundle):void {
-			this.assets = assets;
+		public function init():void {
 			drawButtons();
 		}
 		

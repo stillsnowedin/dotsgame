@@ -1,9 +1,9 @@
 package dotsGame.views {
 	import dotsGame.signals.HideMenu;
-	import robotlegs.bender.bundles.mvcs.Mediator;
-
-	import dotsGame.bundles.MenuAssetBundle;
+	import dotsGame.signals.ShowGrid;
 	import dotsGame.signals.ShowStatus;
+
+	import robotlegs.bender.bundles.mvcs.Mediator;
 	
 	public class MenuMediator extends Mediator {
 		
@@ -11,22 +11,23 @@ package dotsGame.views {
 		public var menu:Menu;
 		
 		[Inject]
-		public var menuAssets:MenuAssetBundle;
-		
-		[Inject]
 		public var hideMenu:HideMenu;
 		
 		[Inject]
 		public var showStatus:ShowStatus;
 		
+		[Inject]
+		public var showGrid:ShowGrid;
+		
 		override public function initialize():void {
-			menu.init(menuAssets);
+			menu.init();
 			menu.startGame.add(onStartGame);
 		}
 		
 		private function onStartGame():void {
 			hideMenu.dispatch();
 			showStatus.dispatch();
+			showGrid.dispatch();
 		}
 	}
 }
