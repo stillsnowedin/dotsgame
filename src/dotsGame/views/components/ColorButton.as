@@ -1,6 +1,5 @@
 package dotsGame.views.components {
 	import flash.events.Event;
-	import flash.geom.Point;
 	
 	public class ColorButton extends Button {
 		protected var upColor:uint;

@@ -1,6 +1,7 @@
 package dotsGame.views.components {
 	import flash.geom.Point;
 	import flash.text.TextField;
+	import flash.text.TextFieldType;
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
 
@@ -34,6 +35,20 @@ package dotsGame.views.components {
 			textField.height = dimensions.y;
 			textField.x = position.x;
 			textField.y =  position.y + textField.height / 2 - textField.textHeight / 2;
+			return textField;
+		}
+		
+		public static function inputTextField(text:String, format:TextFormat, dimensions:Point, position:Point):TextField {
+			var textField:TextField = new TextField();
+			textField.embedFonts = true;
+			textField.defaultTextFormat = format;
+			textField.text = text;
+			textField.type = TextFieldType.INPUT;
+			textField.background = true;
+			textField.width = dimensions.x;
+			textField.height = textField.textHeight;
+			textField.x = position.x;
+			textField.y =  position.y + dimensions.y / 2 - textField.textHeight / 2;
 			return textField;
 		}
 		

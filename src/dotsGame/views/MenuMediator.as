@@ -1,7 +1,6 @@
 package dotsGame.views {
 	import dotsGame.signals.HideMenu;
-	import dotsGame.signals.ShowGrid;
-	import dotsGame.signals.ShowStatus;
+	import dotsGame.signals.ShowSpecs;
 
 	import robotlegs.bender.bundles.mvcs.Mediator;
 	
@@ -14,20 +13,16 @@ package dotsGame.views {
 		public var hideMenu:HideMenu;
 		
 		[Inject]
-		public var showStatus:ShowStatus;
-		
-		[Inject]
-		public var showGrid:ShowGrid;
+		public var showSpecs:ShowSpecs;
 		
 		override public function initialize():void {
 			menu.init();
-			menu.startGame.add(onStartGame);
+			menu.newGame.add(onNewGame);
 		}
 		
-		private function onStartGame():void {
+		private function onNewGame():void {
 			hideMenu.dispatch();
-			showStatus.dispatch();
-			showGrid.dispatch();
+			showSpecs.dispatch();
 		}
 	}
 }

@@ -1,25 +1,30 @@
 package dotsGame.models {
-	import dotsGame.models.dataObjects.GridData;
+	import dotsGame.models.dataObjects.GridLayoutData;
 	
 	public class GridLayout {
+		private static const STAGE_WIDTH:uint = 1024;
+		private static const STAGE_HEIGHT:uint = 768;
+		private static const MARGIN:uint = 100;
 		private static const Y_OFFSET:uint = 100;
-		private static const BOX_ROWS:uint = 4;
-		private static const BOX_COLUMNS:uint = 8;
-		private static const BOX_SIZE:uint = 70;
-		//private static const EDGE_WIDTH:uint = 7;
-		//private static const EDGE_LENGTH:uint = 50;
-		//private static const DOT_RADIUS:uint = 6;
-		private var _gridData:GridData;
+		private static const BOX_ROWS:uint = 8;
+		private static const BOX_COLUMNS:uint = 4;
+		private var _gridData:GridLayoutData;
 		
 		public function GridLayout():void {
 			setGridData();
 		}
 		
 		private function setGridData():void {
-			_gridData = new GridData(Y_OFFSET, BOX_ROWS, BOX_COLUMNS, BOX_SIZE);
+			_gridData = new GridLayoutData(Y_OFFSET, BOX_ROWS, BOX_COLUMNS, boxSize());
 		}
 		
-		public function get gridData():GridData {
+		private function boxSize():uint {
+			var boxWidth:uint = (STAGE_WIDTH - MARGIN) / BOX_COLUMNS;
+			var boxHeight:uint = (STAGE_HEIGHT - Y_OFFSET - MARGIN) / BOX_ROWS;
+			return boxWidth < boxHeight ? boxWidth : boxHeight;
+		}
+		
+		public function get gridData():GridLayoutData {
 			return _gridData;
 		}
 	}

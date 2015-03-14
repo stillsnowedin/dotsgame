@@ -3,16 +3,22 @@ package dotsGame {
 	import dotsGame.models.GridLayout;
 	import dotsGame.signals.HideMenu;
 	import dotsGame.signals.HideMenuCommand;
+	import dotsGame.signals.HideSpecs;
+	import dotsGame.signals.HideSpecsCommand;
 	import dotsGame.signals.ShowGrid;
 	import dotsGame.signals.ShowGridCommand;
 	import dotsGame.signals.ShowMenu;
 	import dotsGame.signals.ShowMenuCommand;
+	import dotsGame.signals.ShowSpecs;
+	import dotsGame.signals.ShowSpecsCommand;
 	import dotsGame.signals.ShowStatus;
 	import dotsGame.signals.ShowStatusCommand;
 	import dotsGame.views.Grid;
 	import dotsGame.views.GridMediator;
 	import dotsGame.views.Menu;
 	import dotsGame.views.MenuMediator;
+	import dotsGame.views.Specs;
+	import dotsGame.views.SpecsMediator;
 	import dotsGame.views.Status;
 	import dotsGame.views.StatusMediator;
 
@@ -58,6 +64,7 @@ package dotsGame {
 		private function mapViewsToMediators():void {
 			mediatorMap.map(Menu).toMediator(MenuMediator);
 			mediatorMap.map(Status).toMediator(StatusMediator);
+			mediatorMap.map(Specs).toMediator(SpecsMediator);
 			mediatorMap.map(Grid).toMediator(GridMediator);
 		}
 		
@@ -65,6 +72,8 @@ package dotsGame {
 			signalCommandMap.map(ShowMenu).toCommand(ShowMenuCommand);
 			signalCommandMap.map(HideMenu).toCommand(HideMenuCommand);
 			signalCommandMap.map(ShowStatus).toCommand(ShowStatusCommand);
+			signalCommandMap.map(ShowSpecs).toCommand(ShowSpecsCommand);
+			signalCommandMap.map(HideSpecs).toCommand(HideSpecsCommand);
 			signalCommandMap.map(ShowGrid).toCommand(ShowGridCommand);
 		}
 		

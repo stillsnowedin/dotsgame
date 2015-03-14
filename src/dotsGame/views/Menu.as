@@ -9,20 +9,20 @@ package dotsGame.views {
 	import flash.text.TextFormat;
 
 	public class Menu extends Sprite {
-		private static const BUTTON_SIZE:Point = new Point(120, 50);
+		private static const BUTTON_SIZE:Point = new Point(170, 50);
 		private static const BUTTON_OFFSET:Number = 10;
-		private static const BUTTON_NAMES:Vector.<String> = new <String>["Start", 
+		private static const BUTTON_NAMES:Vector.<String> = new <String>["New Game", 
 																		 "Options", 
 																		 "Quit"];
-		private var buttonHandlers:Vector.<Function> = new <Function>[startClicked, 
+		private var buttonHandlers:Vector.<Function> = new <Function>[newGameClicked, 
 																	  optionsClicked, 
 																	  quitClicked];
-		public var startGame:Signal;
+		public var newGame:Signal;
 		public var openOptions:Signal;
 		public var quitGame:Signal;
 		
 		public function Menu():void {
-			startGame = new Signal();
+			newGame = new Signal();
 			openOptions = new Signal();
 			quitGame = new Signal();
 		}
@@ -50,8 +50,8 @@ package dotsGame.views {
 			this.addChild(button);
 		}
 		
-		private function startClicked():void {
-			startGame.dispatch();
+		private function newGameClicked():void {
+			newGame.dispatch();
 		}
 		
 		private function optionsClicked():void {
