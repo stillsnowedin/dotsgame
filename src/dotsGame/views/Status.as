@@ -14,6 +14,10 @@ package dotsGame.views {
 		private static const LABEL_WIDTH:Number = 200;
 		private static const NUMBER_WIDTH:Number = 50;
 		private static const SPACING:Number = 150;
+		private static const WHITE:uint = 0xFFFFFF;
+		private static const RED:uint = 0xCC1111;
+		private static const BLUE:uint = 0x1177CC;
+		private static const TEXT_SIZE:uint = 30;
 		private var background:Sprite;
 		private var textfields:Sprite;
 		
@@ -30,57 +34,27 @@ package dotsGame.views {
 		}
 		
 		private function drawRectangles():void {
-			background.addChild(firstPlayerRect());
-			background.addChild(secondPlayerRect());
+			background.addChild(rectangle(0, RED));
+			background.addChild(rectangle(RECTANGLE_WIDTH, BLUE));
 		}
 		
-		private function firstPlayerRect():Shape {
-			var rect:Shape = BasicShapes.createRectangle(RECTANGLE_WIDTH, HEIGHT, 0x1177CC);
-			return rect;
-		}
-		
-		private function secondPlayerRect():Shape {
-			var rect:Shape = BasicShapes.createRectangle(RECTANGLE_WIDTH, HEIGHT, 0xCC1111);
-			rect.x = RECTANGLE_WIDTH;
+		private function rectangle(x:Number, color:uint):Shape {
+			var rect:Shape = BasicShapes.createRectangle(RECTANGLE_WIDTH, HEIGHT, color);
+			rect.x = x;
 			return rect;
 		}
 		
 		private function createTextFields():void {
-			textfields.addChild(firstPlayerLabel());
-			textfields.addChild(firstPlayerScore());
-			textfields.addChild(secondPlayerLabel());
-			textfields.addChild(secondPlayerScore());
+			textfields.addChild(label("PLAYER 1: ", SPACING, LABEL_WIDTH));
+			textfields.addChild(label("0", SPACING + LABEL_WIDTH, NUMBER_WIDTH));
+			textfields.addChild(label("PLAYER 2: ", SPACING + RECTANGLE_WIDTH, LABEL_WIDTH));
+			textfields.addChild(label("0", SPACING + RECTANGLE_WIDTH + LABEL_WIDTH, NUMBER_WIDTH));
 		}
 		
-		private function firstPlayerLabel():TextField {
-			var text:String = "PLAYER 1: ";
-			var format:TextFormat = Components.labelTextFormat(30, 0xFFFFFF);
-			var dimensions:Point = new Point(LABEL_WIDTH, HEIGHT);
-			var position:Point = new Point(SPACING, 0);
-			return Components.textField(text, format, dimensions, position);
-		}
-		
-		private function firstPlayerScore():TextField {
-			var text:String = "0";
-			var format:TextFormat = Components.numberTextFormat(30, 0xFFFFFF);
-			var dimensions:Point = new Point(NUMBER_WIDTH, HEIGHT);
-			var position:Point = new Point(LABEL_WIDTH + SPACING, 0);
-			return Components.textField(text, format, dimensions, position);
-		}
-		
-		private function secondPlayerLabel():TextField {
-			var text:String = "PLAYER 2: ";
-			var format:TextFormat = Components.labelTextFormat(30, 0xFFFFFF);
-			var dimensions:Point = new Point(LABEL_WIDTH, HEIGHT);
-			var position:Point = new Point(RECTANGLE_WIDTH + SPACING, 0);
-			return Components.textField(text, format, dimensions, position);
-		}
-		
-		private function secondPlayerScore():TextField {
-			var text:String = "0";
-			var format:TextFormat = Components.numberTextFormat(30, 0xFFFFFF);
-			var dimensions:Point = new Point(NUMBER_WIDTH, HEIGHT);
-			var position:Point = new Point(RECTANGLE_WIDTH + LABEL_WIDTH + SPACING, 0);
+		private function label(text:String, x:Number, width:Number):TextField {
+			var format:TextFormat = Components.labelTextFormat(TEXT_SIZE, WHITE);
+			var dimensions:Point = new Point(width, HEIGHT);
+			var position:Point = new Point(x, 0);
 			return Components.textField(text, format, dimensions, position);
 		}
 	}
