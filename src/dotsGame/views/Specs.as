@@ -18,6 +18,11 @@ package dotsGame.views {
 		private static const INPUT_WIDTH:uint = 150;
 		private static const Y_OFFSET:uint = 100;
 		private static const SPACING:uint = 50;
+		private static const LABEL_TEXT_SIZE:uint = 30;
+		private static const INPUT_TEXT_SIZE:uint = 20;
+		private static const WHITE:uint = 0xFFFFFF;
+		private static const BLACK:uint = 0x000000;
+		
 		public var playGame:Signal;
 		
 		public function Specs():void {
@@ -31,106 +36,42 @@ package dotsGame.views {
 		}
 		
 		private function createLabels():void {
-			this.addChild(firstPlayerName());
-			this.addChild(firstPlayerColor());
-			this.addChild(secondPlayerName());
-			this.addChild(secondPlayerColor());
-			this.addChild(gridSize());
+			this.addChild(label("PLAYER 1 NAME: ", Y_OFFSET));
+			this.addChild(label("PLAYER 1 COLOR: ", Y_OFFSET + LABEL_HEIGHT));
+			this.addChild(label("PLAYER 2 NAME: ", Y_OFFSET + LABEL_HEIGHT * 2 + SPACING));
+			this.addChild(label("PLAYER 2 COLOR: ", Y_OFFSET + LABEL_HEIGHT * 3 + SPACING));
+			this.addChild(label("GRID SIZE: ", Y_OFFSET + LABEL_HEIGHT * 4 + SPACING * 2));
 		}
 		
-		private function firstPlayerName():TextField {
-			var text:String = "PLAYER 1 NAME: ";
-			var format:TextFormat = Components.labelTextFormat(30, 0xFFFFFF);
+		private function label(text:String, y:Number):TextField {
+			var format:TextFormat = Components.labelTextFormat(LABEL_TEXT_SIZE, WHITE);
 			var dimensions:Point = new Point(LABEL_WIDTH, LABEL_HEIGHT);
-			var position:Point = new Point(LABEL_X, Y_OFFSET);
-			return Components.textField(text, format, dimensions, position);
-		}
-		
-		private function firstPlayerColor():TextField {
-			var text:String = "PLAYER 1 COLOR: ";
-			var format:TextFormat = Components.labelTextFormat(30, 0xFFFFFF);
-			var dimensions:Point = new Point(LABEL_WIDTH, LABEL_HEIGHT);
-			var position:Point = new Point(LABEL_X, Y_OFFSET + LABEL_HEIGHT);
-			return Components.textField(text, format, dimensions, position);
-		}
-		
-		private function secondPlayerName():TextField {
-			var text:String = "PLAYER 2 NAME: ";
-			var format:TextFormat = Components.labelTextFormat(30, 0xFFFFFF);
-			var dimensions:Point = new Point(LABEL_WIDTH, LABEL_HEIGHT);
-			var position:Point = new Point(LABEL_X, Y_OFFSET + LABEL_HEIGHT * 2 + SPACING);
-			return Components.textField(text, format, dimensions, position);
-		}
-		
-		private function secondPlayerColor():TextField {
-			var text:String = "PLAYER 2 COLOR: ";
-			var format:TextFormat = Components.labelTextFormat(30, 0xFFFFFF);
-			var dimensions:Point = new Point(LABEL_WIDTH, LABEL_HEIGHT);
-			var position:Point = new Point(LABEL_X, Y_OFFSET + LABEL_HEIGHT * 3 + SPACING);
-			return Components.textField(text, format, dimensions, position);
-		}
-		
-		private function gridSize():TextField {
-			var text:String = "GRID SIZE: ";
-			var format:TextFormat = Components.labelTextFormat(30, 0xFFFFFF);
-			var dimensions:Point = new Point(LABEL_WIDTH, LABEL_HEIGHT);
-			var position:Point = new Point(LABEL_X, Y_OFFSET + LABEL_HEIGHT * 4 + SPACING * 2);
+			var position:Point = new Point(LABEL_X, y);
 			return Components.textField(text, format, dimensions, position);
 		}
 		
 		private function createInputs():void {
-			this.addChild(firstNameInput());
-			this.addChild(firstColorPicker());
-			this.addChild(secondNameInput());
-			this.addChild(secondColorPicker());
-			this.addChild(rowInput());
-			this.addChild(columnInput());
+			this.addChild(inputField("PLAYER 1", LABEL_X + LABEL_WIDTH, Y_OFFSET));
+			this.addChild(colorPicker([0xFF0000, 0xFFFF00, 0x00FF00], Y_OFFSET + LABEL_HEIGHT));
+			this.addChild(inputField("PLAYER 2", LABEL_X + LABEL_WIDTH, Y_OFFSET + LABEL_HEIGHT * 2 + SPACING));
+			this.addChild(colorPicker([0x00FFFF, 0x0000FF, 0xFF00FF], Y_OFFSET + LABEL_HEIGHT * 3 + SPACING));
+			this.addChild(inputField("5", LABEL_X + LABEL_WIDTH, Y_OFFSET + LABEL_HEIGHT * 4 + SPACING * 2));
+			this.addChild(inputField("5", LABEL_X + LABEL_WIDTH + INPUT_WIDTH + SPACING, Y_OFFSET + LABEL_HEIGHT * 4 + SPACING * 2));
 		}
 		
-		private function firstNameInput():TextField {
-			var text:String = "PLAYER 1";
-			var format:TextFormat = Components.labelTextFormat(20, 0x000000);
+		private function inputField(text:String, x:Number, y:Number):TextField {
+			var format:TextFormat = Components.labelTextFormat(INPUT_TEXT_SIZE, BLACK);
 			var dimensions:Point = new Point(INPUT_WIDTH, LABEL_HEIGHT);
-			var position:Point = new Point(LABEL_X + LABEL_WIDTH, Y_OFFSET);
+			var position:Point = new Point(x, y);
 			return Components.inputTextField(text, format, dimensions, position);
 		}
 		
-		private function firstColorPicker():ColorPicker {
-			var colorPicker:ColorPicker = new ColorPicker();
-			colorPicker.colors = [0xFF0000, 0xFFFF00, 0x00FF00, 0x00FFFF, 0x0000FF, 0xFF00FF];
-			colorPicker.move(LABEL_X + LABEL_WIDTH, Y_OFFSET + LABEL_HEIGHT);
-			return colorPicker;
-		}
-		
-		private function secondNameInput():TextField {
-			var text:String = "PLAYER 2";
-			var format:TextFormat = Components.labelTextFormat(20, 0x000000);
-			var dimensions:Point = new Point(INPUT_WIDTH, LABEL_HEIGHT);
-			var position:Point = new Point(LABEL_X + LABEL_WIDTH, Y_OFFSET + LABEL_HEIGHT * 2 + SPACING);
-			return Components.inputTextField(text, format, dimensions, position);
-		}
-		
-		private function secondColorPicker():ColorPicker {
-			var colorPicker:ColorPicker = new ColorPicker();
-			colorPicker.colors = [0xFF0000, 0xFFFF00, 0x00FF00, 0x00FFFF, 0x0000FF, 0xFF00FF];
-			colorPicker.move(LABEL_X + LABEL_WIDTH, Y_OFFSET + LABEL_HEIGHT * 3 + SPACING);
-			return colorPicker;
-		}
-		
-		private function rowInput():TextField {
-			var text:String = "5";
-			var format:TextFormat = Components.labelTextFormat(20, 0x000000);
-			var dimensions:Point = new Point(INPUT_WIDTH, LABEL_HEIGHT);
-			var position:Point = new Point(LABEL_X + LABEL_WIDTH, Y_OFFSET + LABEL_HEIGHT * 4 + SPACING * 2);
-			return Components.inputTextField(text, format, dimensions, position);
-		}
-		
-		private function columnInput():TextField {
-			var text:String = "5";
-			var format:TextFormat = Components.labelTextFormat(20, 0x000000);
-			var dimensions:Point = new Point(INPUT_WIDTH, LABEL_HEIGHT);
-			var position:Point = new Point(LABEL_X + LABEL_WIDTH + INPUT_WIDTH + SPACING, Y_OFFSET + LABEL_HEIGHT * 4 + SPACING * 2);
-			return Components.inputTextField(text, format, dimensions, position);
+		private function colorPicker(colors:Array, y:Number):ColorPicker {
+			var cp:ColorPicker = new ColorPicker();
+			cp.colors = colors;
+			cp.move(LABEL_X + LABEL_WIDTH, y);
+			cp.selectedColor = colors[0];
+			return cp;
 		}
 		
 		private function createButton():void {
