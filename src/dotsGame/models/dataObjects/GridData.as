@@ -1,6 +1,6 @@
 package dotsGame.models.dataObjects {
 
-	public class GridLayoutData {
+	public class GridData {
 		private var _yOffset:uint;
 		private var _rows:uint;
 		private var _columns:uint;
@@ -9,7 +9,7 @@ package dotsGame.models.dataObjects {
 		private var _edgeLength:uint;
 		private var _dotRadius:uint;
 		
-		public function GridLayoutData(yOffset:uint, rows:uint, columns:uint, boxSize:uint):void {
+		public function GridData(yOffset:uint, rows:uint, columns:uint, boxSize:uint):void {
 			_yOffset = yOffset;
 			_rows = rows;
 			_columns = columns;

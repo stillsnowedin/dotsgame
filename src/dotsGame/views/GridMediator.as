@@ -1,5 +1,5 @@
 package dotsGame.views {
-	import dotsGame.models.GridLayout;
+	import dotsGame.models.Layout;
 
 	import robotlegs.bender.bundles.mvcs.Mediator;
 
@@ -9,10 +9,10 @@ package dotsGame.views {
 		public var grid:Grid;
 		
 		[Inject]
-		public var gridLayout:GridLayout;
+		public var layout:Layout;
 		
 		override public function initialize():void {
-			grid.init(gridLayout.gridData);
+			grid.init(layout.gridData);
 		}
 	}
 }

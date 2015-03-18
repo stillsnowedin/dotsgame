@@ -1,5 +1,5 @@
 package dotsGame.views {
-	import dotsGame.models.GridLayout;
+	import dotsGame.models.Layout;
 	import dotsGame.signals.HideSpecs;
 	import dotsGame.signals.ShowGrid;
 	import dotsGame.signals.ShowStatus;
@@ -12,7 +12,7 @@ package dotsGame.views {
 		public var specs:Specs;
 		
 		[Inject]
-		public var gridLayout:GridLayout;
+		public var layout:Layout;
 		
 		[Inject]
 		public var hideSpecs:HideSpecs;
@@ -29,9 +29,9 @@ package dotsGame.views {
 		}
 		
 		private function onPlayGame():void {
-			gridLayout.initGrid(specs.gridRows, specs.gridColumns);
-			gridLayout.initFirstPlayer(specs.firstName, specs.firstColor);
-			gridLayout.initSecondPlayer(specs.secondName, specs.secondColor);
+			layout.initGrid(specs.gridRows, specs.gridColumns);
+			layout.initFirstPlayer(specs.firstName, specs.firstColor);
+			layout.initSecondPlayer(specs.secondName, specs.secondColor);
 			hideSpecs.dispatch();
 			showStatus.dispatch();
 			showGrid.dispatch();

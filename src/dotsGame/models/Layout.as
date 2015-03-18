@@ -1,19 +1,19 @@
 package dotsGame.models {
-	import dotsGame.models.dataObjects.GridLayoutData;
+	import dotsGame.models.dataObjects.GridData;
 	import dotsGame.models.dataObjects.PlayerData;
 	
-	public class GridLayout {
+	public class Layout {
 		private static const STAGE_WIDTH:uint = 1024;
 		private static const STAGE_HEIGHT:uint = 768;
 		private static const MARGIN:uint = 100;
 		private static const Y_OFFSET:uint = 100;
-		private var _gridData:GridLayoutData;
+		private var _gridData:GridData;
 		private var _firstPlayerData:PlayerData;
 		private var _secondPlayerData:PlayerData;
 		private var _firstScore:uint;
 		private var _secondScore:uint;
 		
-		public function GridLayout():void {
+		public function Layout():void {
 		}
 		
 		public function initFirstPlayer(name:String, color:uint):void {
@@ -25,13 +25,21 @@ package dotsGame.models {
 		}
 		
 		public function initGrid(rows:uint, columns:uint):void {
-			_gridData = new GridLayoutData(Y_OFFSET, rows, columns, boxSize(rows,columns));
+			_gridData = new GridData(Y_OFFSET, rows, columns, boxSize(rows,columns));
 		}
 		
 		private function boxSize(rows:uint, columns:uint):uint {
 			var boxWidth:uint = (STAGE_WIDTH - MARGIN) / columns;
 			var boxHeight:uint = (STAGE_HEIGHT - Y_OFFSET - MARGIN) / rows;
 			return boxWidth < boxHeight ? boxWidth : boxHeight;
+		}
+		
+		public function increaseFirstScore():void {
+			_firstScore++;
+		}
+		
+		public function increaseSecondScore():void {
+			_secondScore++;
 		}
 		
 		public function get firstPlayerData():PlayerData {
@@ -42,16 +50,8 @@ package dotsGame.models {
 			return _secondPlayerData;
 		}
 		
-		public function get gridData():GridLayoutData {
+		public function get gridData():GridData {
 			return _gridData;
-		}
-		
-		public function increaseFirstScore():void {
-			_firstScore++;
-		}
-		
-		public function increaseSecondScore():void {
-			_secondScore++;
 		}
 		
 		public function get firstScore():uint {

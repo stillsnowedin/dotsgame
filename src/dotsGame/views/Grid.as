@@ -1,5 +1,5 @@
 package dotsGame.views {
-	import dotsGame.models.dataObjects.GridLayoutData;
+	import dotsGame.models.dataObjects.GridData;
 	import dotsGame.views.components.BasicShapes;
 	import dotsGame.views.components.Components;
 	import dotsGame.views.components.RectangleButton;
@@ -9,7 +9,7 @@ package dotsGame.views {
 	import flash.geom.Point;
 	
 	public class Grid extends Sprite {
-		private var layout:GridLayoutData;
+		private var layout:GridData;
 		private var boxes:Vector.<Shape>;
 		private var dots:Vector.<Shape>;
 		private var edges:Vector.<RectangleButton>;
@@ -26,7 +26,7 @@ package dotsGame.views {
 			this.addChild(edgeLayer);
 		}
 		
-		public function init(layout:GridLayoutData):void {
+		public function init(layout:GridData):void {
 			this.layout = layout;
 			initBoxes();
 			initDots();
