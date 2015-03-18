@@ -29,6 +29,9 @@ package dotsGame.views {
 		}
 		
 		private function onPlayGame():void {
+			gridLayout.initGrid(specs.gridRows, specs.gridColumns);
+			gridLayout.initFirstPlayer(specs.firstName, specs.firstColor);
+			gridLayout.initSecondPlayer(specs.secondName, specs.secondColor);
 			hideSpecs.dispatch();
 			showStatus.dispatch();
 			showGrid.dispatch();

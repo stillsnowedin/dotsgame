@@ -22,20 +22,33 @@ package dotsGame.views {
 		private static const INPUT_TEXT_SIZE:uint = 20;
 		private static const WHITE:uint = 0xFFFFFF;
 		private static const BLACK:uint = 0x000000;
-		
+		private static const BUTTON_SIZE:Point = new Point(170, 50);
+		private var firstInput:TextField;
+		private var secondInput:TextField;
+		private var firstColorPicker:ColorPicker;
+		private var secondColorPicker:ColorPicker;
+		private var gridRowInput:TextField;
+		private var gridColumnInput:TextField;
 		public var playGame:Signal;
+		public var firstName:String;
+		public var secondName:String;
+		public var firstColor:uint;
+		public var secondColor:uint;
+		public var gridRows:uint;
+		public var gridColumns:uint;
+		
 		
 		public function Specs():void {
 			playGame = new Signal();
 		}
 		
 		public function init():void {
-			createLabels();
-			createInputs();
-			createButton();
+			addLabels();
+			addInputs();
+			addButton();
 		}
 		
-		private function createLabels():void {
+		private function addLabels():void {
 			this.addChild(label("PLAYER 1 NAME: ", Y_OFFSET));
 			this.addChild(label("PLAYER 1 COLOR: ", Y_OFFSET + LABEL_HEIGHT));
 			this.addChild(label("PLAYER 2 NAME: ", Y_OFFSET + LABEL_HEIGHT * 2 + SPACING));
@@ -50,13 +63,13 @@ package dotsGame.views {
 			return Components.textField(text, format, dimensions, position);
 		}
 		
-		private function createInputs():void {
-			this.addChild(inputField("PLAYER 1", LABEL_X + LABEL_WIDTH, Y_OFFSET));
-			this.addChild(colorPicker([0xFF0000, 0xFFFF00, 0x00FF00], Y_OFFSET + LABEL_HEIGHT));
-			this.addChild(inputField("PLAYER 2", LABEL_X + LABEL_WIDTH, Y_OFFSET + LABEL_HEIGHT * 2 + SPACING));
-			this.addChild(colorPicker([0x00FFFF, 0x0000FF, 0xFF00FF], Y_OFFSET + LABEL_HEIGHT * 3 + SPACING));
-			this.addChild(inputField("5", LABEL_X + LABEL_WIDTH, Y_OFFSET + LABEL_HEIGHT * 4 + SPACING * 2));
-			this.addChild(inputField("5", LABEL_X + LABEL_WIDTH + INPUT_WIDTH + SPACING, Y_OFFSET + LABEL_HEIGHT * 4 + SPACING * 2));
+		private function addInputs():void {
+			this.addChild(firstInput = inputField("PLAYER 1", LABEL_X + LABEL_WIDTH, Y_OFFSET));
+			this.addChild(firstColorPicker = colorPicker([0xFF0000, 0xFFFF00, 0x00FF00], Y_OFFSET + LABEL_HEIGHT));
+			this.addChild(secondInput = inputField("PLAYER 2", LABEL_X + LABEL_WIDTH, Y_OFFSET + LABEL_HEIGHT * 2 + SPACING));
+			this.addChild(secondColorPicker = colorPicker([0x00FFFF, 0x0000FF, 0xFF00FF], Y_OFFSET + LABEL_HEIGHT * 3 + SPACING));
+			this.addChild(gridRowInput = inputField("5", LABEL_X + LABEL_WIDTH, Y_OFFSET + LABEL_HEIGHT * 4 + SPACING * 2));
+			this.addChild(gridColumnInput = inputField("5", LABEL_X + LABEL_WIDTH + INPUT_WIDTH + SPACING, Y_OFFSET + LABEL_HEIGHT * 4 + SPACING * 2));
 		}
 		
 		private function inputField(text:String, x:Number, y:Number):TextField {
@@ -69,26 +82,37 @@ package dotsGame.views {
 		private function colorPicker(colors:Array, y:Number):ColorPicker {
 			var cp:ColorPicker = new ColorPicker();
 			cp.colors = colors;
-			cp.move(LABEL_X + LABEL_WIDTH, y);
 			cp.selectedColor = colors[0];
+			cp.move(LABEL_X + LABEL_WIDTH, y);
 			return cp;
 		}
 		
-		private function createButton():void {
-			var dimensions:Point = new Point(120, 50);
-			var position:Point = new Point();
-			position.x = stage.stageWidth/2 - dimensions.x/2; 
-			position.y = Y_OFFSET + LABEL_HEIGHT * 5 + SPACING * 3;
-			var buttonFormat:TextFormat = Components.buttonTextFormat(30, 0xFFFFFF);
+		private function addButton():void {
+			var playButton:ColorButton = colorButton("PLAY", 
+													  stage.stageWidth/2 - BUTTON_SIZE.x/2, 
+													  Y_OFFSET + LABEL_HEIGHT * 5 + SPACING * 3);
+			playButton.clicked.add(onPlay);
+			this.addChild(playButton);
+		}
+		
+		private function colorButton(label:String, x:Number, y:Number):ColorButton {
+			var position:Point = new Point(x,y);
 			var button:ColorButton = Components.colorButton(0x229922, 0x22ff22, 0x55ff22, 
-													   		dimensions, 
+													   		BUTTON_SIZE, 
 													   		position);
-			button.setLabel("PLAY", buttonFormat);
-			button.clicked.add(onPlay);
-			this.addChild(button);
+			var format:TextFormat = Components.buttonTextFormat(30, 0xFFFFFF);
+			button.setLabel(label, format);
+			return button;
 		}
 		
 		private function onPlay():void {
+			//TODO: validate inputs!
+			firstName = firstInput.text;
+			secondName = secondInput.text;
+			firstColor = firstColorPicker.selectedColor;
+			secondColor = secondColorPicker.selectedColor;
+			gridRows = (uint)(gridRowInput.text);
+			gridColumns = (uint)(gridColumnInput.text);
 			playGame.dispatch();
 		}
 	}
