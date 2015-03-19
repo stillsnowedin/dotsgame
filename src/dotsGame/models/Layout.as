@@ -12,16 +12,19 @@ package dotsGame.models {
 		private var _secondPlayerData:PlayerData;
 		private var _firstScore:uint;
 		private var _secondScore:uint;
+		private var _currentColor:uint;
 		
 		public function Layout():void {
 		}
 		
-		public function initFirstPlayer(name:String, color:uint):void {
-			_firstPlayerData = new PlayerData(name, color);
+		public function initPlayers(firstName:String, firstColor:uint, secondName:String, secondColor:uint):void {
+			_firstPlayerData = createPlayer(firstName, firstColor);
+			_secondPlayerData = createPlayer(secondName, secondColor);
+			swapColor();
 		}
 		
-		public function initSecondPlayer(name:String, color:uint):void {
-			_secondPlayerData = new PlayerData(name, color);
+		private function createPlayer(name:String, color:uint):PlayerData {
+			return new PlayerData(name, color);
 		}
 		
 		public function initGrid(rows:uint, columns:uint):void {
@@ -42,6 +45,11 @@ package dotsGame.models {
 			_secondScore++;
 		}
 		
+		public function swapColor():void {
+			_currentColor = (_currentColor == _firstPlayerData.color) ? _secondPlayerData.color : _firstPlayerData.color;
+			trace("[Layout] new color: "+_currentColor);
+		}
+		
 		public function get firstPlayerData():PlayerData {
 			return _firstPlayerData;
 		}
@@ -60,6 +68,10 @@ package dotsGame.models {
 		
 		public function get secondScore():uint {
 			return _secondScore;
+		}
+		
+		public function get currentColor():uint {
+			return _currentColor;
 		}
 	}
 }

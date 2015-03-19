@@ -1,23 +1,27 @@
 package dotsGame.views {
 	import dotsGame.models.dataObjects.GridData;
 	import dotsGame.views.components.BasicShapes;
-	import dotsGame.views.components.Components;
-	import dotsGame.views.components.RectangleButton;
+	import dotsGame.views.components.Edge;
+
+	import org.osflash.signals.Signal;
 
 	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.geom.Point;
 	
 	public class Grid extends Sprite {
+		private var _edgeClicked:Signal;
+		private var _edgeColor:uint;
 		private var layout:GridData;
 		private var boxes:Vector.<Shape>;
 		private var dots:Vector.<Shape>;
-		private var edges:Vector.<RectangleButton>;
+		private var edges:Vector.<Edge>;
 		private var boxLayer:Sprite;
 		private var dotLayer:Sprite;
 		private var edgeLayer:Sprite;
 		
 		public function Grid():void {
+			_edgeClicked = new Signal();
 			boxLayer = new Sprite();
 			dotLayer = new Sprite();
 			edgeLayer = new Sprite();
@@ -26,7 +30,8 @@ package dotsGame.views {
 			this.addChild(edgeLayer);
 		}
 		
-		public function init(layout:GridData):void {
+		public function init(layout:GridData, edgeColor:uint):void {
+			_edgeColor = edgeColor;
 			this.layout = layout;
 			initBoxes();
 			initDots();
@@ -50,7 +55,7 @@ package dotsGame.views {
 		}
 		
 		private function createBox(index:uint, row:uint):Shape {
-			var box:Shape = BasicShapes.createRectangle(layout.boxSize, layout.boxSize, 0x333333, 0);
+			var box:Shape = BasicShapes.rectangle(layout.boxSize, layout.boxSize, 0x333333, 0);
 			box.x = (index % layout.columns) * layout.boxSize;
 			box.y = row * layout.boxSize;
 			return box;
@@ -76,7 +81,7 @@ package dotsGame.views {
 		}
 		
 		private function createDot(index:uint, row:uint):Shape {
-			var dot:Shape = BasicShapes.createCircle(layout.dotRadius, 0x111111);
+			var dot:Shape = BasicShapes.circle(layout.dotRadius, 0x111111);
 			dot.x = (index % (layout.columns+1)) * layout.boxSize;
 			dot.y = row * layout.boxSize;
 			return dot;
@@ -87,7 +92,7 @@ package dotsGame.views {
 		}
 		
 		private function initEdges():void {
-			edges = new Vector.<RectangleButton>();
+			edges = new Vector.<Edge>();
 			var row:int = -1;
 			var horizontalEdges:uint = 0;
 			for (var i:uint=0; i<numEdges(); i++) {
@@ -130,14 +135,35 @@ package dotsGame.views {
 			return position;
 		}
 		
-		private function createEdge(dimensions:Point, position:Point):RectangleButton {
-			var edge:RectangleButton = Components.rectangleButton(0xffffff, 0x990099, 0x000000, dimensions, position);
+		private function createEdge(dimensions:Point, position:Point):Edge {
+			var edge:Edge = new Edge(0xAAAAAA, dimensions);
+			edge.x = position.x;
+			edge.y = position.y;
+			edge.highlighted.add(onEdgeHighlighted);
+			edge.clicked.add(onEdgeClicked);
 			return edge;
+		}
+		
+		private function onEdgeHighlighted(edge:Edge):void {
+			edge.changeColor(0xFFFFFF);
+		}
+		
+		private function onEdgeClicked(edge:Edge):void {
+			edge.changeColor(_edgeColor);
+			_edgeClicked.dispatch();
 		}
 		
 		private function centerGridPosition():void {
 			this.x = (stage.stageWidth - layout.columns * layout.boxSize) / 2;
 			this.y = layout.yOffset + ((stage.stageHeight - layout.yOffset) - layout.rows * layout.boxSize) / 2;
+		}
+		
+		public function get edgeClicked():Signal {
+			return _edgeClicked;
+		}
+		
+		public function set edgeColor(color:uint):void {
+			_edgeColor = color;
 		}
 	}
 }

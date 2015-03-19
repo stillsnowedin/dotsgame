@@ -21,9 +21,9 @@ package dotsGame.views.components {
 		}
 		
 		protected function createBackgrounds():void {
-			up = BasicShapes.createRoundRectangle(bgWidth, bgHeight, upColor);
-			over = BasicShapes.createRoundRectangle(bgWidth, bgHeight, overColor);
-			down = BasicShapes.createRoundRectangle(bgWidth, bgHeight, downColor);
+			up = BasicShapes.roundRectangle(bgWidth, bgHeight, upColor);
+			over = BasicShapes.roundRectangle(bgWidth, bgHeight, overColor);
+			down = BasicShapes.roundRectangle(bgWidth, bgHeight, downColor);
 		}
 	}
 }

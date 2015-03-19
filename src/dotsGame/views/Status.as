@@ -40,7 +40,7 @@ package dotsGame.views {
 		}
 		
 		private function rectangle(x:Number, color:uint):Shape {
-			var rect:Shape = BasicShapes.createRectangle(RECTANGLE_WIDTH, HEIGHT, color);
+			var rect:Shape = BasicShapes.rectangle(RECTANGLE_WIDTH, HEIGHT, color);
 			rect.x = x;
 			return rect;
 		}

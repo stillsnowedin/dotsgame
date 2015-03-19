@@ -7,9 +7,9 @@ package dotsGame.views.components {
 		}
 		
 		override protected function createBackgrounds():void {
-			up = BasicShapes.createRectangle(bgWidth, bgHeight, upColor);
-			over = BasicShapes.createRectangle(bgWidth, bgHeight, overColor);
-			down = BasicShapes.createRectangle(bgWidth, bgHeight, downColor);
+			up = BasicShapes.rectangle(bgWidth, bgHeight, upColor);
+			over = BasicShapes.rectangle(bgWidth, bgHeight, overColor);
+			down = BasicShapes.rectangle(bgWidth, bgHeight, downColor);
 		}
 	}
 }
