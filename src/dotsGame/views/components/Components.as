@@ -38,13 +38,15 @@ package dotsGame.views.components {
 			return textField;
 		}
 		
-		public static function inputTextField(text:String, format:TextFormat, dimensions:Point, position:Point):TextField {
+		public static function inputTextField(text:String, format:TextFormat, dimensions:Point, position:Point, restrictions:String="A-Za-z0-9"):TextField {
 			var textField:TextField = new TextField();
 			textField.embedFonts = true;
 			textField.defaultTextFormat = format;
 			textField.text = text;
 			textField.type = TextFieldType.INPUT;
 			textField.background = true;
+			textField.maxChars = 12;
+			textField.restrict = restrictions;
 			textField.width = dimensions.x;
 			textField.height = textField.textHeight;
 			textField.x = position.x;

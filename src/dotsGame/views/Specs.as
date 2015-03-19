@@ -30,16 +30,19 @@ package dotsGame.views {
 		private var gridRowInput:TextField;
 		private var gridColumnInput:TextField;
 		public var playGame:Signal;
+		public var invalidInput:Signal;
 		public var firstName:String;
 		public var secondName:String;
 		public var firstColor:uint;
 		public var secondColor:uint;
 		public var gridRows:uint;
 		public var gridColumns:uint;
+		public var warning:String;
 		
 		
 		public function Specs():void {
 			playGame = new Signal();
+			invalidInput = new Signal();
 		}
 		
 		public function init():void {
@@ -68,15 +71,18 @@ package dotsGame.views {
 			this.addChild(firstColorPicker = colorPicker([0xFF0000, 0xFFFF00, 0x00FF00], Y_OFFSET + LABEL_HEIGHT));
 			this.addChild(secondInput = inputField("PLAYER 2", LABEL_X + LABEL_WIDTH, Y_OFFSET + LABEL_HEIGHT * 2 + SPACING));
 			this.addChild(secondColorPicker = colorPicker([0x00FFFF, 0x0000FF, 0xFF00FF], Y_OFFSET + LABEL_HEIGHT * 3 + SPACING));
-			this.addChild(gridRowInput = inputField("5", LABEL_X + LABEL_WIDTH, Y_OFFSET + LABEL_HEIGHT * 4 + SPACING * 2));
-			this.addChild(gridColumnInput = inputField("5", LABEL_X + LABEL_WIDTH + INPUT_WIDTH + SPACING, Y_OFFSET + LABEL_HEIGHT * 4 + SPACING * 2));
+			this.addChild(gridRowInput = inputField("5", LABEL_X + LABEL_WIDTH, Y_OFFSET + LABEL_HEIGHT * 4 + SPACING * 2, "0-9"));
+			this.addChild(gridColumnInput = inputField("5", LABEL_X + LABEL_WIDTH + INPUT_WIDTH + SPACING, Y_OFFSET + LABEL_HEIGHT * 4 + SPACING * 2, "0-9"));
 		}
 		
-		private function inputField(text:String, x:Number, y:Number):TextField {
+		private function inputField(text:String, x:Number, y:Number, restrictions:String=""):TextField {
 			var format:TextFormat = Components.labelTextFormat(INPUT_TEXT_SIZE, BLACK);
 			var dimensions:Point = new Point(INPUT_WIDTH, LABEL_HEIGHT);
 			var position:Point = new Point(x, y);
-			return Components.inputTextField(text, format, dimensions, position);
+			if (restrictions != "")
+				return Components.inputTextField(text, format, dimensions, position, restrictions);
+			else
+				return Components.inputTextField(text, format, dimensions, position); 
 		}
 		
 		private function colorPicker(colors:Array, y:Number):ColorPicker {
@@ -106,14 +112,42 @@ package dotsGame.views {
 		}
 		
 		private function onPlay():void {
-			//TODO: validate inputs!
+			if (validateInput())
+				playGame.dispatch();
+			else
+				invalidInput.dispatch();
+		}
+		
+		private function validateInput():Boolean {
+			getInput();
+			var valid:Boolean = validNames() && validGrid();
+			return valid;
+		}
+		
+		private function getInput():void {
 			firstName = firstInput.text;
 			secondName = secondInput.text;
 			firstColor = firstColorPicker.selectedColor;
 			secondColor = secondColorPicker.selectedColor;
 			gridRows = (uint)(gridRowInput.text);
 			gridColumns = (uint)(gridColumnInput.text);
-			playGame.dispatch();
+		}
+		
+		private function validNames():Boolean {
+			if (firstName == "" || secondName == "") {
+				warning = "Names cannot be blank.";
+				return false;
+			}
+			return true;
+		}
+		
+		private function validGrid():Boolean {
+			if ((gridRows < 1 || gridRows > 100) ||
+				(gridColumns < 1 || gridColumns > 100)) {
+				warning = "Grid size must be between 1 and 100.";
+				return false;
+			}
+			return true;
 		}
 	}
 }

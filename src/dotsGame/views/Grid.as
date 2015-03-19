@@ -62,7 +62,7 @@ package dotsGame.views {
 		
 		private function initDots():void {
 			dots = new Vector.<Shape>();
-			var row:uint = -1;
+			var row:int = -1;
 			for (var i:uint=0; i<numDots(); i++) {
 				if (increaseDotRow(i)) row++;
 				dots[i] = createDot(i, row);
@@ -88,7 +88,7 @@ package dotsGame.views {
 		
 		private function initEdges():void {
 			edges = new Vector.<RectangleButton>();
-			var row:uint = -1;
+			var row:int = -1;
 			var horizontalEdges:uint = 0;
 			for (var i:uint=0; i<numEdges(); i++) {
 				if (increaseEdgeRow(i)) {
