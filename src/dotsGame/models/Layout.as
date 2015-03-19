@@ -47,7 +47,6 @@ package dotsGame.models {
 		
 		public function swapColor():void {
 			_currentColor = (_currentColor == _firstPlayerData.color) ? _secondPlayerData.color : _firstPlayerData.color;
-			trace("[Layout] new color: "+_currentColor);
 		}
 		
 		public function get firstPlayerData():PlayerData {
