@@ -12,6 +12,8 @@ package dotsGame {
 	import dotsGame.signals.ShowStatusCommand;
 	import dotsGame.signals.SwapColor;
 	import dotsGame.signals.SwapColorCommand;
+	import dotsGame.signals.UpdateScore;
+	import dotsGame.signals.UpdateScoreCommand;
 	import dotsGame.views.Grid;
 	import dotsGame.views.GridMediator;
 	import dotsGame.views.Specs;
@@ -71,6 +73,7 @@ package dotsGame {
 			signalCommandMap.map(HideSpecs).toCommand(HideSpecsCommand);
 			signalCommandMap.map(ShowGrid).toCommand(ShowGridCommand);
 			signalCommandMap.map(SwapColor).toCommand(SwapColorCommand);
+			signalCommandMap.map(UpdateScore).toCommand(UpdateScoreCommand);
 		}
 		
 		private function showMenu():void {

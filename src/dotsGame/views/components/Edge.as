@@ -10,12 +10,16 @@ package dotsGame.views.components {
 	public class Edge extends Sprite {
 		private var _highlighted:Signal;
 		private var _clicked:Signal;
+		private var _index:uint;
+		private var _eliminated:Boolean;
 		private var defaultColor:uint;
 		private var rectangle:Shape;
 		
-		public function Edge(color:uint, dimensions:Point):void {
-			_highlighted = new Signal(Edge);
-			_clicked = new Signal(Edge);
+		public function Edge(index:uint, color:uint, dimensions:Point):void {
+			_highlighted = new Signal(uint);
+			_clicked = new Signal(uint);
+			_index = index;
+			_eliminated = false;
 			defaultColor = color;
 			drawRectangle(color, dimensions);
 			addListeners();
@@ -34,7 +38,8 @@ package dotsGame.views.components {
 		
 		private function onMouseClick(me:MouseEvent):void {
 			removeListeners();
-			_clicked.dispatch(this);
+			_eliminated = true;
+			_clicked.dispatch(_index);
 		}
 		
 		private function removeListeners():void {
@@ -44,7 +49,7 @@ package dotsGame.views.components {
 		}
 		
 		private function onMouseRollOver(me:MouseEvent):void {
-			_highlighted.dispatch(this);
+			_highlighted.dispatch(_index);
 		}
 		
 		private function onMouseRollOut(me:MouseEvent):void {
@@ -63,6 +68,14 @@ package dotsGame.views.components {
 		
 		public function get clicked():Signal {
 			return _clicked;
+		}
+		
+		public function get index():uint {
+			return _index;
+		}
+		
+		public function get eliminated():Boolean {
+			return _eliminated;
 		}
 	}
 }

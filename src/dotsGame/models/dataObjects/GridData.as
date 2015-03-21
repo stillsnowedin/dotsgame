@@ -24,7 +24,7 @@ package dotsGame.models.dataObjects {
 		}
 		
 		private function calculateEdges(dotRadius:uint):void {
-			_edgeWidth = Math.round(_boxSize / 10);
+			_edgeWidth = _boxSize / 10;
 			_edgeLength = _boxSize - 3 * dotRadius;
 		}
 		

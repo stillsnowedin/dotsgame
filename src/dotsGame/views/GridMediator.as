@@ -2,6 +2,7 @@ package dotsGame.views {
 	import dotsGame.models.Layout;
 	import dotsGame.models.Score;
 	import dotsGame.signals.SwapColor;
+	import dotsGame.signals.UpdateScore;
 
 	import robotlegs.bender.bundles.mvcs.Mediator;
 
@@ -19,19 +20,24 @@ package dotsGame.views {
 		[Inject]
 		public var swapColor:SwapColor;
 		
+		[Inject]
+		public var updateScore:UpdateScore;
+		
 		override public function initialize():void {
 			grid.init(layout.gridData, layout.currentColor);
 			grid.edgeClicked.add(onEdgeClicked);
+			grid.boxed.add(onBoxed);
 		}
 		
 		private function onEdgeClicked():void {
-			//tell grid the color of the line
-			//tell layout to swap colors
+			score.swapTurn();
 			swapColor.dispatch();
 			grid.edgeColor = layout.currentColor;
-			//check if box formed
-			//update score
-			//check if win state
+		}
+		
+		private function onBoxed():void {
+			score.increaseScore();
+			updateScore.dispatch();
 		}
 	}
 }

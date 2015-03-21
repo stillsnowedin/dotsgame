@@ -11,6 +11,7 @@ package dotsGame.views {
 	
 	public class Grid extends Sprite {
 		private var _edgeClicked:Signal;
+		private var _boxed:Signal;
 		private var _edgeColor:uint;
 		private var layout:GridData;
 		private var boxes:Vector.<Shape>;
@@ -22,6 +23,7 @@ package dotsGame.views {
 		
 		public function Grid():void {
 			_edgeClicked = new Signal();
+			_boxed = new Signal();
 			boxLayer = new Sprite();
 			dotLayer = new Sprite();
 			edgeLayer = new Sprite();
@@ -93,22 +95,22 @@ package dotsGame.views {
 		
 		private function initEdges():void {
 			edges = new Vector.<Edge>();
-			var row:int = -1;
+			var row:int = 0;
 			var horizontalEdges:uint = 0;
 			for (var i:uint=0; i<numEdges(); i++) {
+				var position:Point = horizontalEdgePosition(i, row);
+				var dimensions:Point = new Point(layout.edgeLength, layout.edgeWidth);
+				if (horizontalEdges >= layout.columns) {
+					position = verticalEdgePosition(i, row, position.y);
+					dimensions = new Point(layout.edgeWidth, layout.edgeLength);
+				}
+				edges[i] = createEdge(i, dimensions, position);
+				edgeLayer.addChild(edges[i]);
+				horizontalEdges++;
 				if (increaseEdgeRow(i)) {
 					row++;
 					horizontalEdges = 0;
 				}
-				var position:Point = horizontalEdgePosition(i, row);
-				var dimensions:Point = new Point(layout.edgeLength, layout.edgeWidth);
-				if (horizontalEdges >= layout.columns) {
-					position = verticalEdgePosition(i, position.y);
-					dimensions = new Point(layout.edgeWidth, layout.edgeLength);
-				}
-				edges[i] = createEdge(dimensions, position);
-				edgeLayer.addChild(edges[i]);
-				horizontalEdges++;
 			}
 		}
 		
@@ -118,25 +120,25 @@ package dotsGame.views {
 		}
 		
 		private function increaseEdgeRow(index:uint):Boolean {
-			return index % (layout.columns * 2 + 1) == 0;
+			return index % (layout.columns * 2 + 1) == layout.columns * 2;
 		}
 		
 		private function horizontalEdgePosition(index:uint, row:uint):Point {
 			var position:Point = new Point();
-			position.x = (index % layout.columns) * layout.boxSize + (layout.boxSize - layout.edgeLength)/2;
+			position.x = ((index-row) % layout.columns) * layout.boxSize + (layout.boxSize - layout.edgeLength)/2;
 			position.y = row * layout.boxSize - layout.edgeWidth/2;
 			return position;
 		}
 		
-		private function verticalEdgePosition(index:uint, y:Number):Point {
+		private function verticalEdgePosition(index:uint, row:uint, y:Number):Point {
 			var position:Point = new Point();
-			position.x = (index % (layout.columns + 1)) * layout.boxSize - layout.edgeWidth/2;
+			position.x = ((index+1+row) % (layout.columns+1)) * layout.boxSize - layout.edgeWidth/2;
 			position.y = y + (layout.boxSize - layout.edgeLength + layout.dotRadius)/2;
 			return position;
 		}
 		
-		private function createEdge(dimensions:Point, position:Point):Edge {
-			var edge:Edge = new Edge(0xAAAAAA, dimensions);
+		private function createEdge(index:uint, dimensions:Point, position:Point):Edge {
+			var edge:Edge = new Edge(index, 0xAAAAAA, dimensions);
 			edge.x = position.x;
 			edge.y = position.y;
 			edge.highlighted.add(onEdgeHighlighted);
@@ -144,13 +146,64 @@ package dotsGame.views {
 			return edge;
 		}
 		
-		private function onEdgeHighlighted(edge:Edge):void {
-			edge.changeColor(0xFFFFFF);
+		private function onEdgeHighlighted(index:uint):void {
+			edges[index].changeColor(0xFFFFFF);
 		}
 		
-		private function onEdgeClicked(edge:Edge):void {
-			edge.changeColor(_edgeColor);
-			_edgeClicked.dispatch();
+		private function onEdgeClicked(index:uint):void {
+			edges[index].changeColor(_edgeColor);
+			if (!checkForBoxes(index))
+				_edgeClicked.dispatch();
+		}
+		
+		private function checkForBoxes(index:uint):Boolean {
+			var edge:Edge = edges[index];
+			var box1:Vector.<uint> = new Vector.<uint>();
+			box1[0] = index - (layout.columns + 1);
+			box1[1] = index - (layout.columns*2 + 1);
+			box1[2] = index - layout.columns;
+			var box2:Vector.<uint> = new Vector.<uint>();
+			box2[0] = index + layout.columns;
+			box2[1] = index + (layout.columns*2 + 1);
+			box2[2] = index + (layout.columns + 1);
+			
+			if (edge.width < edge.height) { //vertical edge
+				box1[1] = index - 1;
+				box1[2] = index + layout.columns;
+				box2[1] = index + 1;
+				box2[2] = index - layout.columns;
+			}
+			
+			var madeBox:Boolean = false;
+			if (boxExists(box1)) {
+				if(boxComplete(box1)) madeBox = true;
+			}
+			
+			if (boxExists(box2)) {
+				if(boxComplete(box2)) madeBox = true;
+			}
+			
+			return madeBox;
+		}
+		
+		private function boxExists(box:Vector.<uint>):Boolean {
+			for (var i:uint = 0; i<box.length; i++) {
+				if (box[i] < 0 || box[i] >= edges.length) return false;
+			}
+			return true;
+		}
+		
+		private function boxComplete(box:Vector.<uint>):Boolean {
+			var allEdgesEliminated:Boolean = true;
+			for (var i:int=0; i<box.length; i++) {
+				allEdgesEliminated &&= edges[box[i]].eliminated;
+			}
+			
+			if (allEdgesEliminated) {
+				_boxed.dispatch();
+				return true;
+			}
+			return false;
 		}
 		
 		private function centerGridPosition():void {
@@ -160,6 +213,10 @@ package dotsGame.views {
 		
 		public function get edgeClicked():Signal {
 			return _edgeClicked;
+		}
+		
+		public function get boxed():Signal {
+			return _boxed;
 		}
 		
 		public function set edgeColor(color:uint):void {
