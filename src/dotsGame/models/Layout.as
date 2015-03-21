@@ -6,7 +6,6 @@ package dotsGame.models {
 		private static const STAGE_WIDTH:uint = 1024;
 		private static const STAGE_HEIGHT:uint = 768;
 		private static const MARGIN:uint = 100;
-		private static const Y_OFFSET:uint = 100;
 		private var _gridData:GridData;
 		private var _firstPlayerData:PlayerData;
 		private var _secondPlayerData:PlayerData;
@@ -28,12 +27,12 @@ package dotsGame.models {
 		}
 		
 		public function initGrid(rows:uint, columns:uint):void {
-			_gridData = new GridData(Y_OFFSET, rows, columns, boxSize(rows,columns));
+			_gridData = new GridData(MARGIN, rows, columns, boxSize(rows,columns));
 		}
 		
 		private function boxSize(rows:uint, columns:uint):uint {
 			var boxWidth:uint = (STAGE_WIDTH - MARGIN) / columns;
-			var boxHeight:uint = (STAGE_HEIGHT - Y_OFFSET - MARGIN) / rows;
+			var boxHeight:uint = (STAGE_HEIGHT - MARGIN*2) / rows;
 			return boxWidth < boxHeight ? boxWidth : boxHeight;
 		}
 		

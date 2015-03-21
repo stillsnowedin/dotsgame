@@ -5,18 +5,12 @@ package dotsGame.views {
 
 	import flash.display.Shape;
 	import flash.display.Sprite;
-	import flash.geom.Point;
 	import flash.text.TextField;
-	import flash.text.TextFormat;
 
 	public class Status extends Sprite {
-		private static const HEIGHT:Number = 100;
-		private static const RECTANGLE_WIDTH:Number = 512;
-		private static const LABEL_WIDTH:Number = 200;
-		private static const NUMBER_WIDTH:Number = 50;
 		private static const SPACING:Number = 150;
-		private static const WHITE:uint = 0xFFFFFF;
-		private static const TEXT_SIZE:uint = 30;
+		private var rectangleWidth:uint;
+		private var rectangleHeight:uint = 100;
 		private var background:Sprite;
 		private var textfields:Sprite;
 		private var firstScore:TextField;
@@ -30,33 +24,31 @@ package dotsGame.views {
 		}
 		
 		public function init(firstPlayer:PlayerData, secondPlayer:PlayerData, firstScore:uint, secondScore:uint):void {
+			rectangleWidth = stage.stageWidth/2;
 			drawRectangles(firstPlayer.color, secondPlayer.color);
-			createTextFields(firstPlayer.name, firstScore, secondPlayer.name, secondScore);
+			addLabels(firstPlayer.name, firstScore, secondPlayer.name, secondScore);
 		}
 		
 		private function drawRectangles(firstColor:uint, secondColor:uint):void {
 			background.addChild(rectangle(0, firstColor));
-			background.addChild(rectangle(RECTANGLE_WIDTH, secondColor));
+			background.addChild(rectangle(rectangleWidth, secondColor));
 		}
 		
 		private function rectangle(x:Number, color:uint):Shape {
-			var rect:Shape = BasicShapes.rectangle(RECTANGLE_WIDTH, HEIGHT, color);
+			var rect:Shape = BasicShapes.rectangle(rectangleWidth, rectangleHeight, color);
 			rect.x = x;
 			return rect;
 		}
 		
-		private function createTextFields(firstName:String, firstScore:uint, secondName:String, secondScore:uint):void {
-			textfields.addChild(label(firstName+": ", SPACING, LABEL_WIDTH));
-			textfields.addChild(this.firstScore = label(firstScore.toString(), SPACING + LABEL_WIDTH, NUMBER_WIDTH));
-			textfields.addChild(label(secondName+": ", SPACING + RECTANGLE_WIDTH, LABEL_WIDTH));
-			textfields.addChild(this.secondScore = label(secondScore.toString(), SPACING + RECTANGLE_WIDTH + LABEL_WIDTH, NUMBER_WIDTH));
-		}
-		
-		private function label(text:String, x:Number, width:Number):TextField {
-			var format:TextFormat = Components.labelTextFormat(TEXT_SIZE, WHITE);
-			var dimensions:Point = new Point(width, HEIGHT);
-			var position:Point = new Point(x, 0);
-			return Components.textField(text, format, dimensions, position);
+		private function addLabels(firstName:String, firstScore:uint, secondName:String, secondScore:uint):void {
+			var labelY:uint = (rectangleHeight - Components.LABEL_HEIGHT)/2;
+			this.firstScore = Components.label(firstScore.toString(), labelY, SPACING + Components.LABEL_WIDTH);
+			this.secondScore = Components.label(secondScore.toString(), labelY, SPACING + rectangleWidth + Components.LABEL_WIDTH);
+			
+			textfields.addChild(Components.label(firstName+": ", labelY, SPACING));
+			textfields.addChild(this.firstScore);
+			textfields.addChild(Components.label(secondName+": ", labelY, SPACING + rectangleWidth));
+			textfields.addChild(this.secondScore);
 		}
 		
 		public function updateFirstScore(score:uint):void {
