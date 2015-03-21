@@ -1,5 +1,6 @@
 package dotsGame.views {
 	import dotsGame.models.Layout;
+	import dotsGame.models.Score;
 	import dotsGame.signals.SwapColor;
 
 	import robotlegs.bender.bundles.mvcs.Mediator;
@@ -11,6 +12,9 @@ package dotsGame.views {
 		
 		[Inject]
 		public var layout:Layout;
+		
+		[Inject]
+		public var score:Score;
 		
 		[Inject]
 		public var swapColor:SwapColor;

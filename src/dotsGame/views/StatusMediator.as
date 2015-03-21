@@ -1,5 +1,6 @@
 package dotsGame.views {
 	import dotsGame.models.Layout;
+	import dotsGame.models.Score;
 
 	import robotlegs.bender.bundles.mvcs.Mediator;
 	/**
@@ -13,8 +14,11 @@ package dotsGame.views {
 		[Inject]
 		public var layout:Layout;
 		
+		[Inject]
+		public var score:Score;
+		
 		override public function initialize():void {
-			status.init(layout.firstPlayerData, layout.secondPlayerData, layout.firstScore, layout.secondScore);
+			status.init(layout.firstPlayerData, layout.secondPlayerData, score.firstScore, score.secondScore);
 		}
 	}
 }

@@ -1,6 +1,7 @@
 package dotsGame {
 	import dotsGame.models.ActiveViews;
 	import dotsGame.models.Layout;
+	import dotsGame.models.Score;
 	import dotsGame.signals.HideSpecs;
 	import dotsGame.signals.HideSpecsCommand;
 	import dotsGame.signals.ShowGrid;
@@ -51,6 +52,7 @@ package dotsGame {
 		private function mapModelsAsSingletons():void {
 			injector.map(ActiveViews).asSingleton();
 			injector.map(Layout).asSingleton();
+			injector.map(Score).asSingleton();
 		}
 		
 		private function mapServicesAsSingletons():void {
