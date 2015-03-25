@@ -138,7 +138,7 @@ package dotsGame.views {
 		}
 		
 		private function createEdge(index:uint, dimensions:Point, position:Point):Edge {
-			var edge:Edge = new Edge(index, 0xAAAAAA, dimensions);
+			var edge:Edge = new Edge(index, 0x555555, dimensions);
 			edge.x = position.x;
 			edge.y = position.y;
 			edge.highlighted.add(onEdgeHighlighted);

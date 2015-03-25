@@ -42,12 +42,12 @@ package dotsGame.views {
 		
 		private function addLabels(firstName:String, firstScore:uint, secondName:String, secondScore:uint):void {
 			var labelY:uint = (rectangleHeight - Components.LABEL_HEIGHT)/2;
-			this.firstScore = Components.label(firstScore.toString(), labelY, SPACING + Components.LABEL_WIDTH);
-			this.secondScore = Components.label(secondScore.toString(), labelY, SPACING + rectangleWidth + Components.LABEL_WIDTH);
+			this.firstScore = Components.label(firstScore.toString(), SPACING + Components.LABEL_WIDTH, labelY);
+			this.secondScore = Components.label(secondScore.toString(), SPACING + rectangleWidth + Components.LABEL_WIDTH, labelY);
 			
-			textfields.addChild(Components.label(firstName+": ", labelY, SPACING));
+			textfields.addChild(Components.label(firstName+": ", SPACING, labelY));
 			textfields.addChild(this.firstScore);
-			textfields.addChild(Components.label(secondName+": ", labelY, SPACING + rectangleWidth));
+			textfields.addChild(Components.label(secondName+": ", SPACING + rectangleWidth, labelY));
 			textfields.addChild(this.secondScore);
 		}
 		

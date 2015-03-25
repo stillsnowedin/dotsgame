@@ -13,9 +13,11 @@ package dotsGame.views.components {
 		public static const SMALL_TEXT_SIZE:uint = 20;
 		public static const TITLE_WIDTH:uint = 800;
 		public static const TITLE_HEIGHT:uint = 100;
+		public static const HEADER_WIDTH:uint = 375;
+		public static const HEADER_HEIGHT:uint = 80;
 		public static const LABEL_WIDTH:uint = 200;
 		public static const LABEL_HEIGHT:uint = 70;
-		public static const INPUT_WIDTH:uint = 150;
+		public static const INPUT_WIDTH:uint = 100;
 		public static const INPUT_HEIGHT:uint = 70;
 		public static const BUTTON_WIDTH:uint = 170;
 		public static const BUTTON_HEIGHT:uint = 50;
@@ -49,7 +51,18 @@ package dotsGame.views.components {
 			return textField;
 		}
 		
-		public static function label(text:String, y:Number=0, x:Number=0):TextField {
+		public static function header(text:String):TextField {
+			var format:TextFormat = headerTextFormat(MEDIUM_TEXT_SIZE, WHITE);
+			var dimensions:Point = new Point(HEADER_WIDTH, HEADER_HEIGHT);
+			var position:Point = new Point(0, 0);
+			return textField(text, format, dimensions, position);
+		}
+		
+		public static function headerTextFormat(size:uint, color:uint):TextFormat {
+			return textFormat("labelFont", size, color, TextFormatAlign.CENTER);
+		}
+		
+		public static function label(text:String, x:Number=0, y:Number=0):TextField {
 			var format:TextFormat = labelTextFormat(MEDIUM_TEXT_SIZE, WHITE);
 			var dimensions:Point = new Point(LABEL_WIDTH, LABEL_HEIGHT);
 			var position:Point = new Point(x, y);
@@ -60,7 +73,7 @@ package dotsGame.views.components {
 			return textFormat("labelFont", size, color, TextFormatAlign.LEFT);
 		}
 		
-		public static function inputField(text:String, x:Number, y:Number, restrictions:String=""):TextField {
+		public static function inputField(text:String, x:Number=0, y:Number=0, restrictions:String=""):TextField {
 			var format:TextFormat = labelTextFormat(SMALL_TEXT_SIZE, BLACK);
 			var dimensions:Point = new Point(INPUT_WIDTH, INPUT_HEIGHT);
 			var position:Point = new Point(x, y);
@@ -77,7 +90,7 @@ package dotsGame.views.components {
 			textField.text = text;
 			textField.type = TextFieldType.INPUT;
 			textField.background = true;
-			textField.maxChars = 12;
+			textField.maxChars = 8;
 			textField.restrict = restrictions;
 			textField.width = dimensions.x;
 			textField.height = textField.textHeight;
@@ -86,11 +99,11 @@ package dotsGame.views.components {
 			return textField;
 		}
 		
-		public static function colorPicker(colors:Array, y:Number):ColorPicker {
+		public static function colorPicker(colors:Array, x:Number=0, y:Number=0):ColorPicker {
 			var cp:ColorPicker = new ColorPicker();
 			cp.colors = colors;
 			cp.selectedColor = colors[0];
-			cp.move(LABEL_WIDTH, y);
+			cp.move(x, y);
 			return cp;
 		}
 		
