@@ -26,7 +26,7 @@ package dotsGame.views {
 		override public function initialize():void {
 			grid.init(layout.gridData, layout.currentColor);
 			grid.edgeClicked.add(onEdgeClicked);
-			grid.boxed.add(onBoxed);
+			grid.boxMade.add(onBoxMade);
 		}
 		
 		private function onEdgeClicked():void {
@@ -35,7 +35,7 @@ package dotsGame.views {
 			grid.edgeColor = layout.currentColor;
 		}
 		
-		private function onBoxed():void {
+		private function onBoxMade():void {
 			score.increaseScore();
 			updateScore.dispatch();
 		}

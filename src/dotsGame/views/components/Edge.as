@@ -5,7 +5,6 @@ package dotsGame.views.components {
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	import flash.geom.ColorTransform;
-	import flash.geom.Point;
 	
 	public class Edge extends Sprite {
 		private var _highlighted:Signal;
@@ -15,18 +14,18 @@ package dotsGame.views.components {
 		private var defaultColor:uint;
 		private var rectangle:Shape;
 		
-		public function Edge(index:uint, color:uint, dimensions:Point):void {
+		public function Edge(index:uint, color:uint, width:uint, height:uint):void {
 			_highlighted = new Signal(uint);
 			_clicked = new Signal(uint);
 			_index = index;
 			_eliminated = false;
 			defaultColor = color;
-			drawRectangle(color, dimensions);
+			drawRectangle(width, height, color);
 			addListeners();
 		}
 		
-		private function drawRectangle(color:uint, dimensions:Point):void {
-			rectangle = BasicShapes.rectangle(dimensions.x, dimensions.y, color);
+		private function drawRectangle(width:uint, height:uint, color:uint):void {
+			rectangle = BasicShapes.rectangle(width, height, color);
 			this.addChild(rectangle);
 		}
 		
@@ -60,6 +59,10 @@ package dotsGame.views.components {
 			var trans:ColorTransform = rectangle.transform.colorTransform;
 			trans.color = uint(color);
 			rectangle.transform.colorTransform = trans;
+		}
+		
+		public function isVertical():Boolean {
+			return this.width < this.height;
 		}
 		
 		public function get highlighted():Signal {

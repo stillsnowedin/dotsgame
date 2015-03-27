@@ -62,15 +62,15 @@ package dotsGame {
 		}
 		
 		private function mapViewsToMediators():void {
-			mediatorMap.map(Status).toMediator(StatusMediator);
 			mediatorMap.map(Specs).toMediator(SpecsMediator);
+			mediatorMap.map(Status).toMediator(StatusMediator);
 			mediatorMap.map(Grid).toMediator(GridMediator);
 		}
 		
 		private function mapSignalsToCommands():void {
-			signalCommandMap.map(ShowStatus).toCommand(ShowStatusCommand);
 			signalCommandMap.map(ShowSpecs).toCommand(ShowSpecsCommand);
 			signalCommandMap.map(HideSpecs).toCommand(HideSpecsCommand);
+			signalCommandMap.map(ShowStatus).toCommand(ShowStatusCommand);
 			signalCommandMap.map(ShowGrid).toCommand(ShowGridCommand);
 			signalCommandMap.map(SwapColor).toCommand(SwapColorCommand);
 			signalCommandMap.map(UpdateScore).toCommand(UpdateScoreCommand);
