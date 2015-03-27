@@ -102,9 +102,9 @@ package dotsGame.views {
 			var row:int = 0;
 			var edgesInRow:uint = 0;
 			for (var i:uint=0; i<numEdges(); i++) {
-				var edgePos:Point = vertEdge(edgesInRow) ? vertEdgePosition(i, row) : horzEdgePosition(i, row);
-				var edgeWidth:uint = vertEdge(edgesInRow) ? layout.edgeWidth : layout.edgeLength;
-				var edgeHeight:uint = vertEdge(edgesInRow) ? layout.edgeLength : layout.edgeWidth;
+				var edgePos:Point = isVertEdge(edgesInRow) ? vertEdgePosition(i, row) : horzEdgePosition(i, row);
+				var edgeWidth:uint = isVertEdge(edgesInRow) ? layout.edgeWidth : layout.edgeLength;
+				var edgeHeight:uint = isVertEdge(edgesInRow) ? layout.edgeLength : layout.edgeWidth;
 				edges[i] = createEdge(i, edgePos, edgeWidth, edgeHeight);
 				edgeLayer.addChild(edges[i]);
 				edgesInRow++;
@@ -112,7 +112,7 @@ package dotsGame.views {
 			}
 		}
 		
-		private function vertEdge(edgeNum:uint):Boolean {
+		private function isVertEdge(edgeNum:uint):Boolean {
 			return edgeNum >= layout.columns;
 		}
 		
@@ -175,7 +175,7 @@ package dotsGame.views {
 							   index + 1,
 							   index - layout.columns);
 			}
-			checkBoxes(leftBox, rightBox);
+			confirmBoxes(leftBox, rightBox);
 		}
 		
 		private function firstColumn(index:uint):Boolean {
@@ -194,11 +194,7 @@ package dotsGame.views {
 			return box;
 		}
 		
-		/*
-		 * Check if new boxes were made and
-		 * dispatch corresponding signals
-		 */
-		private function checkBoxes(box1:Vector.<uint>, box2:Vector.<uint>):void {
+		private function confirmBoxes(box1:Vector.<uint>, box2:Vector.<uint>):void {
 			//TODO recolor corresponding square
 			var noBoxes:Boolean = true;
 			
@@ -231,7 +227,7 @@ package dotsGame.views {
 			var downBox:Vector.<uint> = box(index + layout.columns,
 										 	index + (layout.columns*2 + 1),
 										 	index + (layout.columns + 1));
-			checkBoxes(upBox, downBox);
+			confirmBoxes(upBox, downBox);
 		}
 		
 		private function centerGridPosition():void {
