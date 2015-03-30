@@ -23,6 +23,7 @@ package dotsGame.views.components {
 		public static const BUTTON_HEIGHT:uint = 50;
 		public static const WHITE:uint = 0xFFFFFF;
 		public static const BLACK:uint = 0x000000;
+		public static const GRAY:uint = 0xAAAAAA;
 		public static const BUTTON_COLOR1:uint = 0x229922;
 		public static const BUTTON_COLOR2:uint = 0x22ff22;
 		public static const BUTTON_COLOR3:uint = 0x55ff22;

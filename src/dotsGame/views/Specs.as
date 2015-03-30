@@ -63,14 +63,14 @@ package dotsGame.views {
 		private function setupContainers():void {
 			mainContainer.x = stage.stageWidth/2 - BACKGROUND_WIDTH/2;
 			mainContainer.y = SPACING;
-			titleContainer.addChild(BasicShapes.roundRectangle(BACKGROUND_WIDTH, Components.TITLE_HEIGHT, 0x000000, 1, 5));
+			titleContainer.addChild(BasicShapes.roundRectangle(BACKGROUND_WIDTH, Components.TITLE_HEIGHT, Components.GRAY, 1, 5));
 			firstContainer.y = Components.TITLE_HEIGHT + SPACING;
-			firstContainer.addChild(BasicShapes.roundRectangle(smallRectWidth(), middleContainerHeight(), 0xCCCCCC, 1, 5));
+			firstContainer.addChild(BasicShapes.roundRectangle(smallRectWidth(), middleContainerHeight(), Components.GRAY, 1, 5));
 			secondContainer.x = BACKGROUND_WIDTH/2 + SPACING/2;
 			secondContainer.y = Components.TITLE_HEIGHT + SPACING;
-			secondContainer.addChild(BasicShapes.roundRectangle(smallRectWidth(), middleContainerHeight(), 0xCCCCCC, 1, 5));
+			secondContainer.addChild(BasicShapes.roundRectangle(smallRectWidth(), middleContainerHeight(), Components.GRAY, 1, 5));
 			gridContainer.y = Components.TITLE_HEIGHT + middleContainerHeight() + SPACING*2;
-			gridContainer.addChild(BasicShapes.roundRectangle(BACKGROUND_WIDTH, Components.LABEL_HEIGHT, 0xCCCCCC, 1, 5));
+			gridContainer.addChild(BasicShapes.roundRectangle(BACKGROUND_WIDTH, Components.LABEL_HEIGHT, Components.GRAY, 1, 5));
 		}
 		
 		private function smallRectWidth():uint {

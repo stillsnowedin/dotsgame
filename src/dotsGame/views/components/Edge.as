@@ -57,7 +57,7 @@ package dotsGame.views.components {
 		
 		public function changeColor(color:uint):void {
 			var trans:ColorTransform = rectangle.transform.colorTransform;
-			trans.color = uint(color);
+			trans.color = color;
 			rectangle.transform.colorTransform = trans;
 		}
 		

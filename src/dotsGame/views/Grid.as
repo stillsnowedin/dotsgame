@@ -1,19 +1,18 @@
 package dotsGame.views {
+	import dotsGame.Utils;
 	import dotsGame.models.dataObjects.GridData;
 	import dotsGame.views.components.BasicShapes;
 	import dotsGame.views.components.Edge;
-
 	import org.osflash.signals.Signal;
-
 	import flash.display.Shape;
 	import flash.display.Sprite;
+	import flash.geom.ColorTransform;
 	import flash.geom.Point;
 	
 	public class Grid extends Sprite {
-		private static const SQUARE_COLOR:uint = 0x333333;
-		private static const DOT_COLOR:uint = 0x111111;
-		private static const EDGE_DEFAULT_COLOR:uint = 0x555555;
-		private static const EDGE_HIGHLIGHT_COLOR:uint = 0xFFFFFF;
+		private static const SQUARE_COLOR:uint = 0x555555;
+		private static const DOT_COLOR:uint = 0xAAAAAA;
+		private static const EDGE_DEFAULT_COLOR:uint = 0x000000;
 		private var _edgeClicked:Signal;
 		private var _boxMade:Signal;
 		private var _edgeColor:uint;
@@ -61,14 +60,14 @@ package dotsGame.views {
 		}
 		
 		private function createSquare(index:uint, row:uint):Shape {
-			var box:Shape = BasicShapes.rectangle(layout.boxSize, layout.boxSize, SQUARE_COLOR, 0);
-			box.x = (index % layout.columns) * layout.boxSize;
-			box.y = row * layout.boxSize;
-			return box;
+			var square:Shape = BasicShapes.rectangle(layout.boxSize, layout.boxSize, SQUARE_COLOR, 0);
+			square.x = (index % layout.columns) * layout.boxSize;
+			square.y = row * layout.boxSize;
+			return square;
 		}
 		
 		private function increaseSquareRow(index:uint):Boolean {
-			return index % layout.columns == 0;
+			return index % layout.columns == (layout.columns - 1);
 		}
 		
 		private function initDots():void {
@@ -149,7 +148,7 @@ package dotsGame.views {
 		}
 		
 		private function onEdgeHighlighted(index:uint):void {
-			edges[index].changeColor(EDGE_HIGHLIGHT_COLOR);
+			edges[index].changeColor(Utils.brighten(_edgeColor, 50));
 		}
 		
 		private function onEdgeClicked(index:uint):void {
@@ -165,14 +164,14 @@ package dotsGame.views {
 		private function checkLeftRight(index:uint):void {
 			var leftBox:Vector.<uint> = null;
 			if (!firstColumn(index)) {
-				leftBox = box(index - (layout.columns + 1),
-							  index - 1,
+				leftBox = box(index - 1, 
+							  index - (layout.columns + 1),
 							  index + layout.columns);
 			}
 			var rightBox:Vector.<uint> = null;
 			if (!lastColumn(index)) {
-				rightBox = box(index + (layout.columns + 1),
-							   index + 1,
+				rightBox = box(index + 1,
+							   index + (layout.columns + 1),
 							   index - layout.columns);
 			}
 			confirmBoxes(leftBox, rightBox);
@@ -195,11 +194,19 @@ package dotsGame.views {
 		}
 		
 		private function confirmBoxes(box1:Vector.<uint>, box2:Vector.<uint>):void {
-			//TODO recolor corresponding square
 			var noBoxes:Boolean = true;
 			
-			if (boxComplete(box1)) { _boxMade.dispatch(); noBoxes = false; }
-			if (boxComplete(box2)) { _boxMade.dispatch(); noBoxes = false; }
+			if (boxComplete(box1)) { 
+				fillSquare(box1); 
+				_boxMade.dispatch(); 
+				noBoxes = false; 
+			}
+			
+			if (boxComplete(box2)) { 
+				fillSquare(box2); 
+				_boxMade.dispatch(); 
+				noBoxes = false; 
+			}
 			
 			if (noBoxes)
 				_edgeClicked.dispatch();
@@ -219,10 +226,21 @@ package dotsGame.views {
 			return true;
 		}
 		
+		private function fillSquare(box:Vector.<uint>):void {
+			var squareRow:uint = Math.floor(box[0] / (layout.columns*2 + 1));
+			var squareCol:uint = box[1] % (layout.columns*2 + 1);
+			var squareIndex:uint = squareRow * layout.columns + squareCol;
+			var square:Shape = squares[squareIndex];
+			var trans:ColorTransform = square.transform.colorTransform;
+			trans.alphaOffset = 255;
+			trans.color = Utils.darken(_edgeColor, 75);
+			square.transform.colorTransform = trans;
+		}
+		
 		private function checkUpDown(index:uint):void {
-			var upBox:Vector.<uint> = box(index - (layout.columns + 1),
+			var upBox:Vector.<uint> = box(index - layout.columns,
 										  index - (layout.columns*2 + 1),
-										  index - layout.columns);
+										  index - (layout.columns + 1));
 			
 			var downBox:Vector.<uint> = box(index + layout.columns,
 										 	index + (layout.columns*2 + 1),
