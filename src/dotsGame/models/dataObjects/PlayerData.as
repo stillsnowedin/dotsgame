@@ -1,20 +1,14 @@
 package dotsGame.models.dataObjects {
 
 	public class PlayerData {
-		private var _name:String;
-		private var _color:uint;
+		public var colors:Array;
+		public var name:String;
+		public var color:uint;
 		
-		public function PlayerData(name:String, color:uint) {
-			_name = name;
-			_color = color;
-		}
-		
-		public function get name():String {
-			return _name;
-		}
-		
-		public function get color():uint {
-			return _color;
+		public function PlayerData(name:String, colors:Array) {
+			this.name = name;
+			this.colors = colors;
+			color = colors[0];
 		}
 	}
 }

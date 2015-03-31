@@ -11,10 +11,13 @@ package dotsGame.models.dataObjects {
 		
 		public function GridData(yOffset:uint, rows:uint, columns:uint, boxSize:uint):void {
 			_yOffset = yOffset;
+			update(rows, columns, boxSize);
+		}
+		
+		public function update(rows:uint, columns:uint, boxSize:uint):void {
 			_rows = rows;
 			_columns = columns;
 			_boxSize = boxSize;
-			
 			calculateDot();
 			calculateEdges(_dotRadius);
 		}

@@ -25,6 +25,7 @@ package dotsGame.views {
 		public var showView:ShowView;
 		
 		override public function initialize():void {
+			trace("[VictoryMediator] initalizing");
 			var victor:String = (score.firstScore > score.secondScore) ? layout.firstPlayerData.name : layout.secondPlayerData.name;
 			victory.init(victor);
 			victory.newGame.add(onNewGame);

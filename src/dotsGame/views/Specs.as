@@ -1,4 +1,6 @@
 package dotsGame.views {
+	import dotsGame.models.dataObjects.GridData;
+	import dotsGame.models.dataObjects.PlayerData;
 	import dotsGame.views.components.BasicShapes;
 	import dotsGame.views.components.ColorButton;
 	import dotsGame.views.components.Components;
@@ -7,6 +9,7 @@ package dotsGame.views {
 
 	import org.osflash.signals.Signal;
 
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.text.TextField;
 
@@ -45,20 +48,15 @@ package dotsGame.views {
 			secondContainer = new Sprite();
 			gridContainer = new Sprite();
 			warningContainer = new Sprite();
-			mainContainer.addChild(titleContainer);
-			mainContainer.addChild(firstContainer);
-			mainContainer.addChild(secondContainer);
-			mainContainer.addChild(gridContainer);
-			mainContainer.addChild(warningContainer);
 			this.addChild(mainContainer);
 		}
 		
-		public function init():void {
+		public function init(firstPlayer:PlayerData, secondPlayer:PlayerData, grid:GridData):void {
 			setupContainers();
 			addTitle();
 			addHeaders();
 			addLabels();
-			addInputs();
+			addInputs(firstPlayer, secondPlayer, grid);
 			addWarning();
 			addButton();
 		}
@@ -66,14 +64,24 @@ package dotsGame.views {
 		private function setupContainers():void {
 			mainContainer.x = stage.stageWidth/2 - BACKGROUND_WIDTH/2;
 			mainContainer.y = SPACING;
+			mainContainer.addChild(titleContainer);
+			mainContainer.addChild(firstContainer);
+			mainContainer.addChild(secondContainer);
+			mainContainer.addChild(gridContainer);
+			mainContainer.addChild(warningContainer);
+			
 			titleContainer.addChild(BasicShapes.roundRectangle(BACKGROUND_WIDTH, Components.TITLE_HEIGHT, Components.GRAY, 1, 5));
+			
 			firstContainer.y = Components.TITLE_HEIGHT + SPACING;
 			firstContainer.addChild(BasicShapes.roundRectangle(smallRectWidth(), middleContainerHeight(), Components.GRAY, 1, 5));
+			
 			secondContainer.x = BACKGROUND_WIDTH/2 + SPACING/2;
 			secondContainer.y = Components.TITLE_HEIGHT + SPACING;
 			secondContainer.addChild(BasicShapes.roundRectangle(smallRectWidth(), middleContainerHeight(), Components.GRAY, 1, 5));
+			
 			gridContainer.y = Components.TITLE_HEIGHT + middleContainerHeight() + SPACING*2;
 			gridContainer.addChild(BasicShapes.roundRectangle(BACKGROUND_WIDTH, Components.LABEL_HEIGHT, Components.GRAY, 1, 5));
+			
 			warningContainer.y = gridContainer.y + gridContainer.height + SPACING;
 			warningContainer.addChild(BasicShapes.rectangle(BACKGROUND_WIDTH, Components.LABEL_HEIGHT, Components.BLACK));
 		}
@@ -109,17 +117,19 @@ package dotsGame.views {
 			return SPACING * 2;
 		}
 		
-		private function addInputs():void {
-			firstInput = Components.inputField("PLAYER 1", rightColX(), Components.HEADER_HEIGHT);
-			firstColorPicker = Components.colorPicker([0xAA0000, 0xAAAA00, 0x00AA00], 
+		private function addInputs(firstPlayer:PlayerData, secondPlayer:PlayerData, grid:GridData):void {
+			firstInput = Components.inputField(firstPlayer.name, rightColX(), Components.HEADER_HEIGHT);
+			firstColorPicker = Components.colorPicker(firstPlayer.colors, 
+													  firstPlayer.color,
 													  rightColX(), 
 													  Components.HEADER_HEIGHT + Components.LABEL_HEIGHT + SPACING);
-			secondInput = Components.inputField("PLAYER 2", rightColX(), Components.HEADER_HEIGHT);
-			secondColorPicker = Components.colorPicker([0x0000AA, 0x00AAAA, 0xAA00AA], 
+			secondInput = Components.inputField(secondPlayer.name, rightColX(), Components.HEADER_HEIGHT);
+			secondColorPicker = Components.colorPicker(secondPlayer.colors,
+													   secondPlayer.color, 
 													   rightColX(), 
 													   Components.HEADER_HEIGHT + Components.LABEL_HEIGHT + SPACING);
-			gridRowInput = Components.inputField("5", rightColX(), 0, "0-9");
-			gridColumnInput = Components.inputField("5", rightColX() + BACKGROUND_WIDTH/2 + SPACING/2, 0, "0-9");
+			gridRowInput = Components.inputField(grid.rows.toString(), rightColX(), 0, "0-9");
+			gridColumnInput = Components.inputField(grid.columns.toString(), rightColX() + BACKGROUND_WIDTH/2 + SPACING/2, 0, "0-9");
 			
 			firstContainer.addChild(firstInput);
 			firstContainer.addChild(firstColorPicker);
@@ -191,6 +201,23 @@ package dotsGame.views {
 		
 		private function showWarning():void {
 			warningLabel.text = warning;
+		}
+		
+		public function destroy():void {
+			firstContainer.removeChildren();
+			secondContainer.removeChildren();
+			gridContainer.removeChildren();
+			warningContainer.removeChildren();
+			mainContainer.removeChildren();
+			
+			firstInput = null;
+			secondInput = null;
+			firstName = null;
+			secondName = null;
+			firstColorPicker = null;
+			secondColorPicker = null;
+			gridRowInput = null;
+			gridColumnInput = null;
 		}
 	}
 }

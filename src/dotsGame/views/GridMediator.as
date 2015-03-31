@@ -24,6 +24,7 @@ package dotsGame.views {
 		public var updateScore:UpdateScore;
 		
 		override public function initialize():void {
+			trace("[GridMediator] initalizing");
 			grid.init(layout.gridData, layout.currentColor);
 			grid.edgeClicked.add(onEdgeClicked);
 			grid.boxMade.add(onBoxMade);

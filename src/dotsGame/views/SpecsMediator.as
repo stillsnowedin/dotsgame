@@ -21,16 +21,18 @@ package dotsGame.views {
 		public var showView:ShowView;
 		
 		override public function initialize():void {
-			specs.init();
+			trace("[SpecsMediator] initalizing");
+			specs.init(layout.firstPlayerData, layout.secondPlayerData, layout.gridData);
 			specs.playGame.add(onPlayGame);
 		}
 		
 		private function onPlayGame():void {
-			layout.initGrid(specs.gridRows, specs.gridColumns);
-			layout.initPlayers(specs.firstName, specs.firstColor, specs.secondName, specs.secondColor);
+			layout.setGrid(specs.gridRows, specs.gridColumns);
+			layout.setPlayers(specs.firstName, specs.firstColor, specs.secondName, specs.secondColor);
 			hideView.dispatch(ViewName.SPECS);
 			showView.dispatch(ViewName.STATUS);
 			showView.dispatch(ViewName.GRID);
+			specs.destroy();
 		}
 	}
 }

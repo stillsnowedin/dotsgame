@@ -20,6 +20,7 @@ package dotsGame.views {
 		public var updateScore:UpdateScore;
 		
 		override public function initialize():void {
+			trace("[StatusMediator] initalizing");
 			status.init(layout.firstPlayerData, layout.secondPlayerData, score.firstScore, score.secondScore);
 			updateScore.add(onUpdateScore);
 		}

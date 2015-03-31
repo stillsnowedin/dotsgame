@@ -112,10 +112,10 @@ package dotsGame.views.components {
 			return textField;
 		}
 		
-		public static function colorPicker(colors:Array, x:Number=0, y:Number=0):ColorPicker {
+		public static function colorPicker(colors:Array, color:uint, x:Number=0, y:Number=0):ColorPicker {
 			var cp:ColorPicker = new ColorPicker();
 			cp.colors = colors;
-			cp.selectedColor = colors[0];
+			cp.selectedColor = color;
 			cp.move(x, y);
 			return cp;
 		}
