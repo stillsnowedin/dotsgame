@@ -1,8 +1,8 @@
 package dotsGame.views {
 	import dotsGame.models.Layout;
-	import dotsGame.signals.HideSpecs;
-	import dotsGame.signals.ShowGrid;
-	import dotsGame.signals.ShowStatus;
+	import dotsGame.models.dataObjects.ViewName;
+	import dotsGame.signals.HideView;
+	import dotsGame.signals.ShowView;
 
 	import robotlegs.bender.bundles.mvcs.Mediator;
 
@@ -15,13 +15,10 @@ package dotsGame.views {
 		public var layout:Layout;
 		
 		[Inject]
-		public var hideSpecs:HideSpecs;
+		public var hideView:HideView;
 		
 		[Inject]
-		public var showStatus:ShowStatus;
-		
-		[Inject]
-		public var showGrid:ShowGrid;
+		public var showView:ShowView;
 		
 		override public function initialize():void {
 			specs.init();
@@ -31,9 +28,9 @@ package dotsGame.views {
 		private function onPlayGame():void {
 			layout.initGrid(specs.gridRows, specs.gridColumns);
 			layout.initPlayers(specs.firstName, specs.firstColor, specs.secondName, specs.secondColor);
-			hideSpecs.dispatch();
-			showStatus.dispatch();
-			showGrid.dispatch();
+			hideView.dispatch(ViewName.SPECS);
+			showView.dispatch(ViewName.STATUS);
+			showView.dispatch(ViewName.GRID);
 		}
 	}
 }

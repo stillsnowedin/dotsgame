@@ -1,6 +1,7 @@
 package dotsGame.signals {
 	import dotsGame.models.Layout;
 	import dotsGame.models.Score;
+	import dotsGame.models.dataObjects.ViewName;
 	
 	public class UpdateScoreCommand {
 		
@@ -11,13 +12,13 @@ package dotsGame.signals {
 		public var score:Score;
 		
 		[Inject]
-		public var showVictory:ShowVictory;
+		public var showView:ShowView;
 		
 		public function execute():void {
 			var totalBoxes:uint = layout.gridData.rows * layout.gridData.columns;
 			var currentBoxes:uint = score.firstScore + score.secondScore;
 			if (currentBoxes == totalBoxes) {
-				showVictory.dispatch();
+				showView.dispatch(ViewName.VICTORY);
 			}
 		}
 	}

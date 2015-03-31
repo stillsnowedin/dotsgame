@@ -2,22 +2,11 @@ package dotsGame {
 	import dotsGame.models.ActiveViews;
 	import dotsGame.models.Layout;
 	import dotsGame.models.Score;
-	import dotsGame.signals.HideGrid;
-	import dotsGame.signals.HideGridCommand;
-	import dotsGame.signals.HideSpecs;
-	import dotsGame.signals.HideSpecsCommand;
-	import dotsGame.signals.HideStatus;
-	import dotsGame.signals.HideStatusCommand;
-	import dotsGame.signals.HideVictory;
-	import dotsGame.signals.HideVictoryCommand;
-	import dotsGame.signals.ShowGrid;
-	import dotsGame.signals.ShowGridCommand;
-	import dotsGame.signals.ShowSpecs;
-	import dotsGame.signals.ShowSpecsCommand;
-	import dotsGame.signals.ShowStatus;
-	import dotsGame.signals.ShowStatusCommand;
-	import dotsGame.signals.ShowVictory;
-	import dotsGame.signals.ShowVictoryCommand;
+	import dotsGame.models.dataObjects.ViewName;
+	import dotsGame.signals.HideView;
+	import dotsGame.signals.HideViewCommand;
+	import dotsGame.signals.ShowView;
+	import dotsGame.signals.ShowViewCommand;
 	import dotsGame.signals.SwapColor;
 	import dotsGame.signals.SwapColorCommand;
 	import dotsGame.signals.UpdateScore;
@@ -79,21 +68,15 @@ package dotsGame {
 		}
 		
 		private function mapSignalsToCommands():void {
-			signalCommandMap.map(ShowSpecs).toCommand(ShowSpecsCommand);
-			signalCommandMap.map(HideSpecs).toCommand(HideSpecsCommand);
-			signalCommandMap.map(ShowStatus).toCommand(ShowStatusCommand);
-			signalCommandMap.map(HideStatus).toCommand(HideStatusCommand);
-			signalCommandMap.map(ShowGrid).toCommand(ShowGridCommand);
-			signalCommandMap.map(HideGrid).toCommand(HideGridCommand);
+			signalCommandMap.map(ShowView).toCommand(ShowViewCommand);
+			signalCommandMap.map(HideView).toCommand(HideViewCommand);
 			signalCommandMap.map(SwapColor).toCommand(SwapColorCommand);
 			signalCommandMap.map(UpdateScore).toCommand(UpdateScoreCommand);
-			signalCommandMap.map(ShowVictory).toCommand(ShowVictoryCommand);
-			signalCommandMap.map(HideVictory).toCommand(HideVictoryCommand);
 		}
 		
 		private function showMenu():void {
-			var showSpecs:ShowSpecs = injector.getInstance(ShowSpecs);
-			showSpecs.dispatch();
+			var showView:ShowView = injector.getInstance(ShowView);
+			showView.dispatch(ViewName.SPECS);
 		}
 	}
 }

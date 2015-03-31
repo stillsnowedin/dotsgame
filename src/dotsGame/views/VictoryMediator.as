@@ -1,10 +1,9 @@
 package dotsGame.views {
 	import dotsGame.models.Layout;
 	import dotsGame.models.Score;
-	import dotsGame.signals.HideGrid;
-	import dotsGame.signals.HideStatus;
-	import dotsGame.signals.HideVictory;
-	import dotsGame.signals.ShowSpecs;
+	import dotsGame.models.dataObjects.ViewName;
+	import dotsGame.signals.HideView;
+	import dotsGame.signals.ShowView;
 
 	import robotlegs.bender.bundles.mvcs.Mediator;
 	
@@ -20,16 +19,10 @@ package dotsGame.views {
 		public var layout:Layout;
 		
 		[Inject]
-		public var hideStatus:HideStatus;
+		public var hideView:HideView;
 		
 		[Inject]
-		public var hideGrid:HideGrid;
-		
-		[Inject]
-		public var hideVictory:HideVictory;
-		
-		[Inject]
-		public var showSpecs:ShowSpecs;
+		public var showView:ShowView;
 		
 		override public function initialize():void {
 			var victor:String = (score.firstScore > score.secondScore) ? layout.firstPlayerData.name : layout.secondPlayerData.name;
@@ -38,10 +31,10 @@ package dotsGame.views {
 		}
 		
 		private function onNewGame():void {
-			hideStatus.dispatch();
-			hideGrid.dispatch();
-			hideVictory.dispatch();
-			showSpecs.dispatch();
+			hideView.dispatch(ViewName.STATUS);
+			hideView.dispatch(ViewName.GRID);
+			hideView.dispatch(ViewName.VICTORY);
+			showView.dispatch(ViewName.SPECS);
 		}
 	}
 }
