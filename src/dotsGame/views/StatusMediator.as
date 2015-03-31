@@ -4,9 +4,7 @@ package dotsGame.views {
 	import dotsGame.signals.UpdateScore;
 
 	import robotlegs.bender.bundles.mvcs.Mediator;
-	/**
-	 * @author Kathryn
-	 */
+
 	public class StatusMediator extends Mediator {
 		
 		[Inject]

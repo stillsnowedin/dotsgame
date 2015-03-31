@@ -140,7 +140,7 @@ package dotsGame.views {
 		private function addButton():void {
 			var playButton:ColorButton = Components.colorButton("PLAY");
 			playButton.x = stage.stageWidth/2 - playButton.width/2;
-			playButton.y = stage.stageHeight - Y_OFFSET - SPACING;
+			playButton.y = stage.stageHeight - Y_OFFSET - SPACING*2;
 			playButton.clicked.add(onPlay);
 			this.addChild(playButton);
 		}
