@@ -24,6 +24,7 @@ package dotsGame.views.components {
 		public static const WHITE:uint = 0xFFFFFF;
 		public static const BLACK:uint = 0x000000;
 		public static const GRAY:uint = 0xAAAAAA;
+		public static const RED:uint = 0xD73B3E;
 		public static const BUTTON_COLOR1:uint = 0x229922;
 		public static const BUTTON_COLOR2:uint = 0x22ff22;
 		public static const BUTTON_COLOR3:uint = 0x55ff22;
@@ -35,7 +36,7 @@ package dotsGame.views.components {
 			return textField(text, format, dimensions, position);
 		}
 		
-		public static function titleTextFormat(size:uint, color:uint):TextFormat {
+		private static function titleTextFormat(size:uint, color:uint):TextFormat {
 			return textFormat("titleFont", size, color, TextFormatAlign.CENTER);
 		}
 		
@@ -59,7 +60,7 @@ package dotsGame.views.components {
 			return textField(text, format, dimensions, position);
 		}
 		
-		public static function headerTextFormat(size:uint, color:uint):TextFormat {
+		private static function headerTextFormat(size:uint, color:uint):TextFormat {
 			return textFormat("labelFont", size, color, TextFormatAlign.CENTER);
 		}
 		
@@ -70,8 +71,19 @@ package dotsGame.views.components {
 			return textField(text, format, dimensions, position);
 		}
 		
-		public static function labelTextFormat(size:uint, color:uint):TextFormat {
+		private static function labelTextFormat(size:uint, color:uint):TextFormat {
 			return textFormat("labelFont", size, color, TextFormatAlign.LEFT);
+		}
+		
+		public static function warning(text:String):TextField {
+			var format:TextFormat = warningTextFormat(MEDIUM_TEXT_SIZE, RED);
+			var dimensions:Point = new Point(TITLE_WIDTH, LABEL_HEIGHT);
+			var position:Point = new Point(0, 0);
+			return textField(text, format, dimensions, position);
+		}
+		
+		private static function warningTextFormat(size:uint, color:uint):TextFormat {
+			return textFormat("labelFont", size, color, TextFormatAlign.CENTER);
 		}
 		
 		public static function inputField(text:String, x:Number=0, y:Number=0, restrictions:String=""):TextField {

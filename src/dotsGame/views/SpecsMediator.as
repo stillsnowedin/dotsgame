@@ -26,7 +26,6 @@ package dotsGame.views {
 		override public function initialize():void {
 			specs.init();
 			specs.playGame.add(onPlayGame);
-			specs.invalidInput.add(onInvalidInput);
 		}
 		
 		private function onPlayGame():void {
@@ -35,10 +34,6 @@ package dotsGame.views {
 			hideSpecs.dispatch();
 			showStatus.dispatch();
 			showGrid.dispatch();
-		}
-		
-		private function onInvalidInput():void {
-			trace("[SpecsMediator] invalid input: "+specs.warning);
 		}
 	}
 }

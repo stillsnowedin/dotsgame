@@ -19,6 +19,8 @@ package dotsGame.views {
 		private var firstContainer:Sprite;
 		private var secondContainer:Sprite;
 		private var gridContainer:Sprite;
+		private var warningContainer:Sprite;
+		private var warningLabel:TextField;
 		private var firstInput:TextField;
 		private var secondInput:TextField;
 		private var firstColorPicker:ColorPicker;
@@ -26,7 +28,6 @@ package dotsGame.views {
 		private var gridRowInput:TextField;
 		private var gridColumnInput:TextField;
 		public var playGame:Signal;
-		public var invalidInput:Signal;
 		public var firstName:String;
 		public var secondName:String;
 		public var firstColor:uint;
@@ -38,17 +39,18 @@ package dotsGame.views {
 		
 		public function Specs():void {
 			playGame = new Signal();
-			invalidInput = new Signal();
 			mainContainer = new Sprite();
 			titleContainer = new Sprite();
 			firstContainer = new Sprite();
 			secondContainer = new Sprite();
 			gridContainer = new Sprite();
-			this.addChild(mainContainer);
+			warningContainer = new Sprite();
 			mainContainer.addChild(titleContainer);
 			mainContainer.addChild(firstContainer);
 			mainContainer.addChild(secondContainer);
 			mainContainer.addChild(gridContainer);
+			mainContainer.addChild(warningContainer);
+			this.addChild(mainContainer);
 		}
 		
 		public function init():void {
@@ -57,6 +59,7 @@ package dotsGame.views {
 			addHeaders();
 			addLabels();
 			addInputs();
+			addWarning();
 			addButton();
 		}
 		
@@ -71,6 +74,8 @@ package dotsGame.views {
 			secondContainer.addChild(BasicShapes.roundRectangle(smallRectWidth(), middleContainerHeight(), Components.GRAY, 1, 5));
 			gridContainer.y = Components.TITLE_HEIGHT + middleContainerHeight() + SPACING*2;
 			gridContainer.addChild(BasicShapes.roundRectangle(BACKGROUND_WIDTH, Components.LABEL_HEIGHT, Components.GRAY, 1, 5));
+			warningContainer.y = gridContainer.y + gridContainer.height + SPACING;
+			warningContainer.addChild(BasicShapes.rectangle(BACKGROUND_WIDTH, Components.LABEL_HEIGHT, Components.BLACK));
 		}
 		
 		private function smallRectWidth():uint {
@@ -128,6 +133,10 @@ package dotsGame.views {
 			return Components.LABEL_WIDTH + SPACING;
 		}
 		
+		private function addWarning():void {
+			warningContainer.addChild(warningLabel = Components.warning(""));
+		}
+		
 		private function addButton():void {
 			var playButton:ColorButton = Components.colorButton("PLAY");
 			playButton.x = stage.stageWidth/2 - playButton.width/2;
@@ -137,10 +146,15 @@ package dotsGame.views {
 		}
 		
 		private function onPlay():void {
+			clearWarning();
 			if (validateInput())
 				playGame.dispatch();
 			else
-				invalidInput.dispatch();
+				showWarning();
+		}
+		
+		private function clearWarning():void {
+			warningLabel.text = "";
 		}
 		
 		private function validateInput():Boolean {
@@ -173,6 +187,10 @@ package dotsGame.views {
 				return false;
 			}
 			return true;
+		}
+		
+		private function showWarning():void {
+			warningLabel.text = warning;
 		}
 	}
 }
