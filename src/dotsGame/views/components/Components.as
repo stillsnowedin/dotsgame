@@ -19,7 +19,7 @@ package dotsGame.views.components {
 		public static const LABEL_HEIGHT:uint = 70;
 		public static const INPUT_WIDTH:uint = 100;
 		public static const INPUT_HEIGHT:uint = 70;
-		public static const BUTTON_WIDTH:uint = 170;
+		public static const BUTTON_WIDTH:uint = 180;
 		public static const BUTTON_HEIGHT:uint = 50;
 		public static const WHITE:uint = 0xFFFFFF;
 		public static const BLACK:uint = 0x000000;

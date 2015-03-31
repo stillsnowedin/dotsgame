@@ -8,9 +8,9 @@ package dotsGame.views {
 	import flash.display.Sprite;
 	
 	public class Victory extends Sprite {
-		private static const SPACING:uint = 25;
-		private static const BACKGROUND_WIDTH:uint = Components.LABEL_WIDTH + SPACING*2;
-		private static const BACKGROUND_HEIGHT:uint = Components.LABEL_HEIGHT + Components.BUTTON_HEIGHT + SPACING*2;
+		private static const MARGIN:uint = 20;
+		private static const BACKGROUND_WIDTH:uint = Components.HEADER_WIDTH;
+		private static const BACKGROUND_HEIGHT:uint = Components.LABEL_HEIGHT + Components.BUTTON_HEIGHT + MARGIN;
 		private var background:Sprite;
 		private var foreground:Sprite;
 		public var newGame:Signal;
@@ -36,13 +36,13 @@ package dotsGame.views {
 		}
 		
 		private function addLabel(victor:String):void {
-			foreground.addChild(Components.label(victor+" Wins!!!", SPACING, SPACING));
+			foreground.addChild(Components.header(victor+" Wins!!!"));
 		}
 		
 		private function addButton():void {
 			var button:ColorButton = Components.colorButton("NEW GAME");
 			button.x = BACKGROUND_WIDTH/2 - button.width/2;
-			button.y = Components.LABEL_HEIGHT + SPACING;
+			button.y = Components.LABEL_HEIGHT;
 			button.clicked.add(function():void { newGame.dispatch(); });
 			this.addChild(button);
 		}
