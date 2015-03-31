@@ -27,6 +27,9 @@ package dotsGame.views {
 		public function Grid():void {
 			_edgeClicked = new Signal();
 			_boxMade = new Signal();
+			squares = new Vector.<Shape>();
+			dots = new Vector.<Shape>();
+			edges = new Vector.<Edge>();
 			squareLayer = new Sprite();
 			dotLayer = new Sprite();
 			edgeLayer = new Sprite();
@@ -36,6 +39,7 @@ package dotsGame.views {
 		}
 		
 		public function init(layout:GridData, edgeColor:uint):void {
+			reset();
 			_edgeColor = edgeColor;
 			this.layout = layout;
 			initSquares();
@@ -44,8 +48,25 @@ package dotsGame.views {
 			centerGridPosition();
 		}
 		
+		private function reset():void {
+			squareLayer.removeChildren();
+			dotLayer.removeChildren();
+			edgeLayer.removeChildren();
+			
+			for (var i:uint=0; i<squares.length; i++) {
+				delete squares[i];
+			}
+			
+			for (var j:uint=0; j<dots.length; j++) {
+				delete dots[j];
+			}
+			
+			for (var k:uint=0; k<edges.length; k++) {
+				delete edges[k];
+			}
+		}
+		
 		private function initSquares():void {
-			squares = new Vector.<Shape>();
 			var row:uint = 0;
 			for (var i:uint=0; i<numSquares(); i++) {
 				squares[i] = createSquare(i, row);
@@ -71,7 +92,6 @@ package dotsGame.views {
 		}
 		
 		private function initDots():void {
-			dots = new Vector.<Shape>();
 			var row:int = 0;
 			for (var i:uint=0; i<numDots(); i++) {
 				dots[i] = createDot(i, row);
@@ -97,7 +117,6 @@ package dotsGame.views {
 		}
 		
 		private function initEdges():void {
-			edges = new Vector.<Edge>();
 			var row:int = 0;
 			var edgesInRow:uint = 0;
 			for (var i:uint=0; i<numEdges(); i++) {

@@ -21,7 +21,6 @@ package dotsGame.views {
 		public var showView:ShowView;
 		
 		override public function initialize():void {
-			trace("[SpecsMediator] initalizing");
 			specs.init(layout.firstPlayerData, layout.secondPlayerData, layout.gridData);
 			specs.playGame.add(onPlayGame);
 		}
