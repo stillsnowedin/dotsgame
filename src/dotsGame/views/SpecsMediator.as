@@ -32,7 +32,6 @@ package dotsGame.views {
 			hideView.dispatch(ViewName.SPECS);
 			showView.dispatch(ViewName.STATUS);
 			showView.dispatch(ViewName.GRID);
-			specs.destroy();
 		}
 	}
 }

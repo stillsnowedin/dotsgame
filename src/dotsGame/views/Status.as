@@ -12,21 +12,27 @@ package dotsGame.views {
 		private var rectangleWidth:uint;
 		private var rectangleHeight:uint = 100;
 		private var background:Sprite;
-		private var textfields:Sprite;
+		private var foreground:Sprite;
 		private var firstScore:TextField;
 		private var secondScore:TextField;
 		
 		public function Status():void {
 			background = new Sprite();
-			textfields = new Sprite();
+			foreground = new Sprite();
 			this.addChild(background);
-			this.addChild(textfields);
+			this.addChild(foreground);
 		}
 		
 		public function init(firstPlayer:PlayerData, secondPlayer:PlayerData, firstScore:uint, secondScore:uint):void {
+			reset();
 			rectangleWidth = stage.stageWidth/2;
 			drawRectangles(firstPlayer.color, secondPlayer.color);
 			addLabels(firstPlayer.name, firstScore, secondPlayer.name, secondScore);
+		}
+		
+		private function reset():void {
+			background.removeChildren();
+			foreground.removeChildren();
 		}
 		
 		private function drawRectangles(firstColor:uint, secondColor:uint):void {
@@ -45,10 +51,10 @@ package dotsGame.views {
 			this.firstScore = Components.label(firstScore.toString(), SPACING + Components.LABEL_WIDTH, labelY);
 			this.secondScore = Components.label(secondScore.toString(), SPACING + rectangleWidth + Components.LABEL_WIDTH, labelY);
 			
-			textfields.addChild(Components.label(firstName+": ", SPACING, labelY));
-			textfields.addChild(this.firstScore);
-			textfields.addChild(Components.label(secondName+": ", SPACING + rectangleWidth, labelY));
-			textfields.addChild(this.secondScore);
+			foreground.addChild(Components.label(firstName+": ", SPACING, labelY));
+			foreground.addChild(this.firstScore);
+			foreground.addChild(Components.label(secondName+": ", SPACING + rectangleWidth, labelY));
+			foreground.addChild(this.secondScore);
 		}
 		
 		public function updateFirstScore(score:uint):void {

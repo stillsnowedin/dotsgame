@@ -52,6 +52,7 @@ package dotsGame.views {
 		}
 		
 		public function init(firstPlayer:PlayerData, secondPlayer:PlayerData, grid:GridData):void {
+			reset();
 			setupContainers();
 			addTitle();
 			addHeaders();
@@ -59,6 +60,23 @@ package dotsGame.views {
 			addInputs(firstPlayer, secondPlayer, grid);
 			addWarning();
 			addButton();
+		}
+		
+		public function reset():void {
+			firstContainer.removeChildren();
+			secondContainer.removeChildren();
+			gridContainer.removeChildren();
+			warningContainer.removeChildren();
+			mainContainer.removeChildren();
+			
+			firstInput = null;
+			secondInput = null;
+			firstName = null;
+			secondName = null;
+			firstColorPicker = null;
+			secondColorPicker = null;
+			gridRowInput = null;
+			gridColumnInput = null;
 		}
 		
 		private function setupContainers():void {
@@ -201,23 +219,6 @@ package dotsGame.views {
 		
 		private function showWarning():void {
 			warningLabel.text = warning;
-		}
-		
-		public function destroy():void {
-			firstContainer.removeChildren();
-			secondContainer.removeChildren();
-			gridContainer.removeChildren();
-			warningContainer.removeChildren();
-			mainContainer.removeChildren();
-			
-			firstInput = null;
-			secondInput = null;
-			firstName = null;
-			secondName = null;
-			firstColorPicker = null;
-			secondColorPicker = null;
-			gridRowInput = null;
-			gridColumnInput = null;
 		}
 	}
 }
