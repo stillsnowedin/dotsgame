@@ -62,7 +62,7 @@ package dotsGame.views {
 			addButton();
 		}
 		
-		public function reset():void {
+		private function reset():void {
 			firstContainer.removeChildren();
 			secondContainer.removeChildren();
 			gridContainer.removeChildren();

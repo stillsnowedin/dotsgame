@@ -24,11 +24,17 @@ package dotsGame.views {
 		}
 		
 		public function init(victor:String):void {
+			reset();
 			this.x = stage.stageWidth/2 - BACKGROUND_WIDTH/2;
 			this.y = stage.stageHeight/2 - BACKGROUND_HEIGHT/2;
 			addBackground();
 			addLabel(victor);
 			addButton();
+		}
+		
+		private function reset():void {
+			background.removeChildren();
+			foreground.removeChildren();
 		}
 		
 		private function addBackground():void {
