@@ -17,6 +17,7 @@ package dotsGame.signals {
 		public function execute():void {
 			var totalBoxes:uint = layout.gridData.rows * layout.gridData.columns;
 			var currentBoxes:uint = score.firstScore + score.secondScore;
+			trace("[UpdateScoreCommand] total: "+totalBoxes+"  current: "+currentBoxes);
 			if (currentBoxes == totalBoxes) {
 				showView.dispatch(ViewName.VICTORY);
 			}

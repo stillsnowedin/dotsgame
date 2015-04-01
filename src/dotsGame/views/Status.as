@@ -19,20 +19,18 @@ package dotsGame.views {
 		public function Status():void {
 			background = new Sprite();
 			foreground = new Sprite();
-			this.addChild(background);
-			this.addChild(foreground);
 		}
 		
 		public function init(firstPlayer:PlayerData, secondPlayer:PlayerData, firstScore:uint, secondScore:uint):void {
-			reset();
 			rectangleWidth = stage.stageWidth/2;
+			initContainers();
 			drawRectangles(firstPlayer.color, secondPlayer.color);
 			addLabels(firstPlayer.name, firstScore, secondPlayer.name, secondScore);
 		}
 		
-		private function reset():void {
-			background.removeChildren();
-			foreground.removeChildren();
+		private function initContainers():void {
+			this.addChild(background);
+			this.addChild(foreground);
 		}
 		
 		private function drawRectangles(firstColor:uint, secondColor:uint):void {
@@ -63,6 +61,12 @@ package dotsGame.views {
 		
 		public function updateSecondScore(score:uint):void {
 			secondScore.text = score.toString();
+		}
+		
+		public function destroy():void {
+			background.removeChildren();
+			foreground.removeChildren();
+			this.removeChildren();
 		}
 	}
 }

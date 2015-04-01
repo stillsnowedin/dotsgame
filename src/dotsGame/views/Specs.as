@@ -48,11 +48,9 @@ package dotsGame.views {
 			secondContainer = new Sprite();
 			gridContainer = new Sprite();
 			warningContainer = new Sprite();
-			this.addChild(mainContainer);
 		}
 		
 		public function init(firstPlayer:PlayerData, secondPlayer:PlayerData, grid:GridData):void {
-			reset();
 			setupContainers();
 			addTitle();
 			addHeaders();
@@ -62,24 +60,9 @@ package dotsGame.views {
 			addButton();
 		}
 		
-		private function reset():void {
-			firstContainer.removeChildren();
-			secondContainer.removeChildren();
-			gridContainer.removeChildren();
-			warningContainer.removeChildren();
-			mainContainer.removeChildren();
-			
-			firstInput = null;
-			secondInput = null;
-			firstName = null;
-			secondName = null;
-			firstColorPicker = null;
-			secondColorPicker = null;
-			gridRowInput = null;
-			gridColumnInput = null;
-		}
-		
 		private function setupContainers():void {
+			this.addChild(mainContainer);
+			
 			mainContainer.x = stage.stageWidth/2 - BACKGROUND_WIDTH/2;
 			mainContainer.y = SPACING;
 			mainContainer.addChild(titleContainer);
@@ -219,6 +202,25 @@ package dotsGame.views {
 		
 		private function showWarning():void {
 			warningLabel.text = warning;
+		}
+		
+		public function destroy():void {
+			firstContainer.removeChildren();
+			secondContainer.removeChildren();
+			gridContainer.removeChildren();
+			warningContainer.removeChildren();
+			mainContainer.removeChildren();
+			this.removeChildren();
+			playGame.removeAll();
+			
+			firstInput = null;
+			secondInput = null;
+			firstName = null;
+			secondName = null;
+			firstColorPicker = null;
+			secondColorPicker = null;
+			gridRowInput = null;
+			gridColumnInput = null;
 		}
 	}
 }

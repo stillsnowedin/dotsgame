@@ -13,6 +13,13 @@ package dotsGame.models {
 			onFirst = !onFirst;
 		}
 		
+		public function reset():void {
+			trace("[Score] resetting");
+			onFirst = true;
+			_firstScore = 0;
+			_secondScore = 0;
+		}
+		
 		public function get firstScore():uint {
 			return _firstScore;
 		}

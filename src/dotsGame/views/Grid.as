@@ -3,7 +3,9 @@ package dotsGame.views {
 	import dotsGame.models.dataObjects.GridData;
 	import dotsGame.views.components.BasicShapes;
 	import dotsGame.views.components.Edge;
+
 	import org.osflash.signals.Signal;
+
 	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.geom.ColorTransform;
@@ -33,37 +35,22 @@ package dotsGame.views {
 			squareLayer = new Sprite();
 			dotLayer = new Sprite();
 			edgeLayer = new Sprite();
-			this.addChild(squareLayer);
-			this.addChild(dotLayer);
-			this.addChild(edgeLayer);
 		}
 		
 		public function init(layout:GridData, edgeColor:uint):void {
-			reset();
 			_edgeColor = edgeColor;
 			this.layout = layout;
+			initLayers();
 			initSquares();
 			initDots();
 			initEdges();
 			centerGridPosition();
 		}
 		
-		private function reset():void {
-			squareLayer.removeChildren();
-			dotLayer.removeChildren();
-			edgeLayer.removeChildren();
-			
-			for (var i:uint=0; i<squares.length; i++) {
-				delete squares[i];
-			}
-			
-			for (var j:uint=0; j<dots.length; j++) {
-				delete dots[j];
-			}
-			
-			for (var k:uint=0; k<edges.length; k++) {
-				delete edges[k];
-			}
+		private function initLayers():void {
+			this.addChild(squareLayer);
+			this.addChild(dotLayer);
+			this.addChild(edgeLayer);
 		}
 		
 		private function initSquares():void {
@@ -215,13 +202,15 @@ package dotsGame.views {
 		private function confirmBoxes(box1:Vector.<uint>, box2:Vector.<uint>):void {
 			var noBoxes:Boolean = true;
 			
-			if (boxComplete(box1)) { 
+			if (boxComplete(box1)) {
+				trace("[Grid] box 1 made");
 				fillSquare(box1); 
 				_boxMade.dispatch(); 
 				noBoxes = false; 
 			}
 			
-			if (boxComplete(box2)) { 
+			if (boxComplete(box2)) {
+				trace("[Grid] box 2 made");
 				fillSquare(box2); 
 				_boxMade.dispatch(); 
 				noBoxes = false; 
@@ -282,6 +271,27 @@ package dotsGame.views {
 		
 		public function set edgeColor(color:uint):void {
 			_edgeColor = color;
+		}
+		
+		public function destroy():void {
+			squareLayer.removeChildren();
+			dotLayer.removeChildren();
+			edgeLayer.removeChildren();
+			this.removeChildren();
+			_edgeClicked.removeAll();
+			_boxMade.removeAll();
+			
+			for (var i:uint=0; i<squares.length; i++) {
+				delete squares[i];
+			}
+			
+			for (var j:uint=0; j<dots.length; j++) {
+				delete dots[j];
+			}
+			
+			for (var k:uint=0; k<edges.length; k++) {
+				delete edges[k];
+			}
 		}
 	}
 }

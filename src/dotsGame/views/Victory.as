@@ -19,22 +19,20 @@ package dotsGame.views {
 			newGame = new Signal();
 			background = new Sprite();
 			foreground = new Sprite();
-			this.addChild(background);
-			this.addChild(foreground);
 		}
 		
 		public function init(victor:String):void {
-			reset();
-			this.x = stage.stageWidth/2 - BACKGROUND_WIDTH/2;
-			this.y = stage.stageHeight/2 - BACKGROUND_HEIGHT/2;
+			initContainers();
 			addBackground();
 			addLabel(victor);
 			addButton();
 		}
 		
-		private function reset():void {
-			background.removeChildren();
-			foreground.removeChildren();
+		private function initContainers():void {
+			this.x = stage.stageWidth/2 - BACKGROUND_WIDTH/2;
+			this.y = stage.stageHeight/2 - BACKGROUND_HEIGHT/2;
+			this.addChild(background);
+			this.addChild(foreground);
 		}
 		
 		private function addBackground():void {
@@ -51,6 +49,13 @@ package dotsGame.views {
 			button.y = Components.LABEL_HEIGHT;
 			button.clicked.add(function():void { newGame.dispatch(); });
 			this.addChild(button);
+		}
+		
+		public function destroy():void {
+			background.removeChildren();
+			foreground.removeChildren();
+			this.removeChildren();
+			newGame.removeAll();
 		}
 	}
 }

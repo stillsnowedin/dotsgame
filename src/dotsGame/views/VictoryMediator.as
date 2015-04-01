@@ -27,10 +27,11 @@ package dotsGame.views {
 		override public function initialize():void {
 			var victor:String = (score.firstScore > score.secondScore) ? layout.firstPlayerData.name : layout.secondPlayerData.name;
 			victory.init(victor);
-			victory.newGame.add(onNewGame);
+			victory.newGame.addOnce(onNewGame);
 		}
 		
 		private function onNewGame():void {
+			score.reset();
 			hideView.dispatch(ViewName.STATUS);
 			hideView.dispatch(ViewName.GRID);
 			hideView.dispatch(ViewName.VICTORY);

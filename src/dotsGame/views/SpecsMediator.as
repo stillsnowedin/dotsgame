@@ -22,10 +22,11 @@ package dotsGame.views {
 		
 		override public function initialize():void {
 			specs.init(layout.firstPlayerData, layout.secondPlayerData, layout.gridData);
-			specs.playGame.add(onPlayGame);
+			specs.playGame.addOnce(onPlayGame);
 		}
 		
 		private function onPlayGame():void {
+			trace("[SpecsMediator] onPlayGame...");
 			layout.setGrid(specs.gridRows, specs.gridColumns);
 			layout.setPlayers(specs.firstName, specs.firstColor, specs.secondName, specs.secondColor);
 			hideView.dispatch(ViewName.SPECS);
