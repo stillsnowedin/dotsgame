@@ -8,6 +8,7 @@ package dotsGame.models {
 		private static const MARGIN:uint = 100;
 		private static const FIRST_COLORS:Array = [0xAA0000, 0xAAAA00, 0x00AA00];
 		private static const SECOND_COLORS:Array = [0x0000AA, 0x00AAAA, 0xAA00AA];
+		private static const DEFAULT_SIZE:uint = 5;
 		private var _gridData:GridData;
 		private var _firstPlayerData:PlayerData;
 		private var _secondPlayerData:PlayerData;
@@ -16,7 +17,7 @@ package dotsGame.models {
 		public function Layout():void {
 			_firstPlayerData = new PlayerData("PLAYER 1", FIRST_COLORS);
 			_secondPlayerData = new PlayerData("PLAYER 2", SECOND_COLORS);
-			_gridData = new GridData(MARGIN, 1, 1, boxSize(1,1));
+			_gridData = new GridData(MARGIN, DEFAULT_SIZE, DEFAULT_SIZE, boxSize(DEFAULT_SIZE,DEFAULT_SIZE));
 		}
 		
 		public function setPlayers(firstName:String, firstColor:uint, secondName:String, secondColor:uint):void {

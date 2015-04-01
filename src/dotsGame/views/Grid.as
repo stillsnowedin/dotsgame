@@ -203,14 +203,12 @@ package dotsGame.views {
 			var noBoxes:Boolean = true;
 			
 			if (boxComplete(box1)) {
-				trace("[Grid] box 1 made");
 				fillSquare(box1); 
 				_boxMade.dispatch(); 
 				noBoxes = false; 
 			}
 			
 			if (boxComplete(box2)) {
-				trace("[Grid] box 2 made");
 				fillSquare(box2); 
 				_boxMade.dispatch(); 
 				noBoxes = false; 

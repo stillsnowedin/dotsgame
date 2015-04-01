@@ -14,7 +14,6 @@ package dotsGame.models {
 		}
 		
 		public function reset():void {
-			trace("[Score] resetting");
 			onFirst = true;
 			_firstScore = 0;
 			_secondScore = 0;

@@ -26,7 +26,6 @@ package dotsGame.views {
 		}
 		
 		private function onPlayGame():void {
-			trace("[SpecsMediator] onPlayGame...");
 			layout.setGrid(specs.gridRows, specs.gridColumns);
 			layout.setPlayers(specs.firstName, specs.firstColor, specs.secondName, specs.secondColor);
 			hideView.dispatch(ViewName.SPECS);
