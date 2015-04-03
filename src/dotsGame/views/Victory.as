@@ -36,7 +36,7 @@ package dotsGame.views {
 		}
 		
 		private function addBackground():void {
-			background.addChild(BasicShapes.rectangle(BACKGROUND_WIDTH, BACKGROUND_HEIGHT, Components.GRAY));
+			background.addChild(BasicShapes.roundRectangle(BACKGROUND_WIDTH, BACKGROUND_HEIGHT, Components.BG_COLOR));
 		}
 		
 		private function addLabel(victor:String):void {

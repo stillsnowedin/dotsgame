@@ -12,9 +12,9 @@ package dotsGame.views {
 	import flash.geom.Point;
 	
 	public class Grid extends Sprite {
-		private static const SQUARE_COLOR:uint = 0x555555;
-		private static const DOT_COLOR:uint = 0xAAAAAA;
-		private static const EDGE_DEFAULT_COLOR:uint = 0x000000;
+		private static const SQUARE_COLOR:uint = 0x292929;
+		private static const DOT_COLOR:uint = 0xEEEEEE;
+		private static const EDGE_COLOR:uint = 0x292929;
 		private var _edgeClicked:Signal;
 		private var _boxMade:Signal;
 		private var _edgeColor:uint;
@@ -141,7 +141,7 @@ package dotsGame.views {
 		}
 		
 		private function createEdge(index:uint, position:Point, width:uint, height:uint):Edge {
-			var edge:Edge = new Edge(index, EDGE_DEFAULT_COLOR, width, height);
+			var edge:Edge = new Edge(index, EDGE_COLOR, width, height);
 			edge.x = position.x;
 			edge.y = position.y;
 			edge.highlighted.add(onEdgeHighlighted);

@@ -10,7 +10,7 @@ package dotsGame {
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
 
-	[SWF(width="1024", height="720", backgroundColor="#000000")]
+	[SWF(width="1024", height="720", backgroundColor="#292929")]
 	
 	public class DotsGame extends Sprite {
 		

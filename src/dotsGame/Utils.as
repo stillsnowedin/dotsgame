@@ -4,7 +4,11 @@ package dotsGame {
 		
 		public static function brighten(hexColor:Number, percent:Number):Number{
             var factor:Number = validPercent(percent)/100;
-			return shiftColor(hexColor, factor);
+			var rgb:Object = hexToRgb(hexColor);
+			rgb.r += (255 - rgb.r) * factor;
+            rgb.g += (255 - rgb.g) * factor;
+			rgb.b += (255 - rgb.b) * factor;
+			return rgbToHex(Math.round(rgb.r), Math.round(rgb.g), Math.round(rgb.b));
         }
 		
 		private static function validPercent(percent:Number):Number {
@@ -15,14 +19,6 @@ package dotsGame {
             if (percent < 0)
                 return 0;
 			return percent;
-		}
-		
-		private static function shiftColor(hexColor:Number, factor:Number):Number {
-			var rgb:Object = hexToRgb(hexColor);
-			rgb.r += rgb.r * factor; //rgb.r + 255 * factor - rgb.r * factor
-            rgb.g += rgb.g * factor;
-			rgb.b += rgb.b * factor;
-            return rgbToHex(Math.round(rgb.r), Math.round(rgb.g), Math.round(rgb.b));
 		}
 		
 		private static function hexToRgb (hex:Number):Object{
@@ -36,8 +32,18 @@ package dotsGame {
         }
 		
 		public static function darken(hexColor:Number, percent:Number):Number {
-            var factor:Number = 0 - validPercent(percent)/100;
-            return shiftColor(hexColor, factor);
+            var factor:Number = validPercent(percent)/100;
+			var rgb:Object = hexToRgb(hexColor);
+			rgb.r *= factor;
+			rgb.g *= factor;
+			rgb.b *= factor;
+			return rgbToHex(Math.round(rgb.r), Math.round(rgb.g), Math.round(rgb.b));
+		}
+		
+		public static function combine(hex1:Number, hex2:Number):Number {
+			var rgb1:Object = hexToRgb(hex1);
+			var rgb2:Object = hexToRgb(hex2);
+			return rgbToHex(Math.round((rgb1.r+rgb2.r)/2), Math.round((rgb1.g+rgb2.g)/2), Math.round((rgb1.b+rgb2.b)/2));
 		}
 	}
 }

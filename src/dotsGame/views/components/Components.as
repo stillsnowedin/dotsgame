@@ -21,16 +21,16 @@ package dotsGame.views.components {
 		public static const INPUT_HEIGHT:uint = 70;
 		public static const BUTTON_WIDTH:uint = 180;
 		public static const BUTTON_HEIGHT:uint = 50;
-		public static const WHITE:uint = 0xFFFFFF;
-		public static const BLACK:uint = 0x000000;
-		public static const GRAY:uint = 0xAAAAAA;
+		public static const BG_COLOR:uint = 0x4F6373;
+		public static const TEXT_COLOR:uint = 0xFFFFFF;
+		public static const BLACK:uint = 0x292929;
 		public static const RED:uint = 0xD73B3E;
-		public static const BUTTON_COLOR1:uint = 0x229922;
-		public static const BUTTON_COLOR2:uint = 0x22ff22;
-		public static const BUTTON_COLOR3:uint = 0x55ff22;
+		public static const BUTTON_COLOR1:uint = 0x8F8164;
+		public static const BUTTON_COLOR2:uint = 0xD9D7AC;
+		public static const BUTTON_COLOR3:uint = 0xD9D7AC;
 		
 		public static function title(text:String):TextField {
-			var format:TextFormat = titleTextFormat(LARGE_TEXT_SIZE, WHITE);
+			var format:TextFormat = titleTextFormat(LARGE_TEXT_SIZE, TEXT_COLOR);
 			var dimensions:Point = new Point(TITLE_WIDTH, TITLE_HEIGHT);
 			var position:Point = new Point(0, 0);
 			return textField(text, format, dimensions, position);
@@ -54,7 +54,7 @@ package dotsGame.views.components {
 		}
 		
 		public static function header(text:String):TextField {
-			var format:TextFormat = headerTextFormat(MEDIUM_TEXT_SIZE, WHITE);
+			var format:TextFormat = headerTextFormat(MEDIUM_TEXT_SIZE, TEXT_COLOR);
 			var dimensions:Point = new Point(HEADER_WIDTH, HEADER_HEIGHT);
 			var position:Point = new Point(0, 0);
 			return textField(text, format, dimensions, position);
@@ -65,7 +65,7 @@ package dotsGame.views.components {
 		}
 		
 		public static function label(text:String, x:Number=0, y:Number=0):TextField {
-			var format:TextFormat = labelTextFormat(MEDIUM_TEXT_SIZE, WHITE);
+			var format:TextFormat = labelTextFormat(MEDIUM_TEXT_SIZE, TEXT_COLOR);
 			var dimensions:Point = new Point(LABEL_WIDTH, LABEL_HEIGHT);
 			var position:Point = new Point(x, y);
 			return textField(text, format, dimensions, position);
@@ -123,7 +123,7 @@ package dotsGame.views.components {
 		public static function colorButton(text:String):ColorButton {
 			var colorButton:ColorButton = new ColorButton(BUTTON_COLOR1, BUTTON_COLOR2, BUTTON_COLOR3);
 			colorButton.setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
-			colorButton.setLabel(text, buttonTextFormat(MEDIUM_TEXT_SIZE, WHITE));
+			colorButton.setLabel(text, buttonTextFormat(MEDIUM_TEXT_SIZE, TEXT_COLOR));
 			return colorButton;
 		}
 		

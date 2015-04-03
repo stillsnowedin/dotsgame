@@ -6,8 +6,8 @@ package dotsGame.models {
 		private static const STAGE_WIDTH:uint = 1024;
 		private static const STAGE_HEIGHT:uint = 720;
 		private static const MARGIN:uint = 100;
-		private static const FIRST_COLORS:Array = [0xAA0000, 0xAAAA00, 0x00AA00];
-		private static const SECOND_COLORS:Array = [0x0000AA, 0x00AAAA, 0xAA00AA];
+		private static const FIRST_COLORS:Array = [0xD23600, 0x167F39, 0xB0925F, 0x67B8DE, 0x7B52AB];
+		private static const SECOND_COLORS:Array = [0x3399CC, 0x9768D1, 0x6D4320, 0xD95100, 0xC1D74E];
 		private static const DEFAULT_SIZE:uint = 5;
 		private var _gridData:GridData;
 		private var _firstPlayerData:PlayerData;
