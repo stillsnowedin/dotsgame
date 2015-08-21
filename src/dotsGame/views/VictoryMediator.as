@@ -25,9 +25,16 @@ package dotsGame.views {
 		public var showView:ShowView;
 		
 		override public function initialize():void {
-			var victor:String = (score.firstScore > score.secondScore) ? layout.firstPlayerData.name : layout.secondPlayerData.name;
+			var victor:String = getVictor();
 			victory.init(victor);
 			victory.newGame.addOnce(onNewGame);
+		}
+		
+		private function getVictor():String {
+			if (score.firstScore == score.secondScore)
+				return null;
+			else
+				return (score.firstScore > score.secondScore) ? layout.firstPlayerData.name : layout.secondPlayerData.name;
 		}
 		
 		private function onNewGame():void {

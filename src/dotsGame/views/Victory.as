@@ -24,7 +24,7 @@ package dotsGame.views {
 		public function init(victor:String):void {
 			initContainers();
 			addBackground();
-			addLabel(victor);
+			addLabel(victor ? (victor + " Wins!!!!") : "It's a tie.");
 			addButton();
 		}
 		
@@ -39,8 +39,8 @@ package dotsGame.views {
 			background.addChild(BasicShapes.roundRectangle(BACKGROUND_WIDTH, BACKGROUND_HEIGHT, Components.BG_COLOR));
 		}
 		
-		private function addLabel(victor:String):void {
-			foreground.addChild(Components.header(victor+" Wins!!!"));
+		private function addLabel(message:String):void {
+			foreground.addChild(Components.header(message));
 		}
 		
 		private function addButton():void {
