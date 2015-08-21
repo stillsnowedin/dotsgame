@@ -16,10 +16,10 @@ package dotsGame {
 		
 		public function DotsGame():void {
 			stage.align = StageAlign.TOP_LEFT;
-            stage.scaleMode = StageScaleMode.NO_SCALE;
-            addEventListener(Event.ADDED_TO_STAGE, createContext);
+			stage.scaleMode = StageScaleMode.NO_SCALE;
+			addEventListener(Event.ADDED_TO_STAGE, createContext);
 		}
-		
+
 		private function createContext(evt:Event):void {
 			removeEventListener(Event.ADDED_TO_STAGE, createContext);
 			var context:IContext = new Context()

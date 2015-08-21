@@ -167,10 +167,10 @@ package dotsGame.views {
 			edge.isVertical() ? checkLeftRight(index) : checkUpDown(index);
 		}
 		
-		private function checkLeftRight(index:uint):void {
+		private function checkLeftRight(index : uint) : void {
 			var leftBox:Vector.<uint> = null;
 			if (!firstColumn(index)) {
-				leftBox = box(index - 1, 
+				leftBox = box(index - 1,
 							  index - (layout.columns + 1),
 							  index + layout.columns);
 			}
