@@ -23,12 +23,16 @@ package dotsGame.models {
 		public function setPlayers(firstName:String, firstColor:uint, secondName:String, secondColor:uint):void {
 			updatePlayer(_firstPlayerData, firstName, firstColor);
 			updatePlayer(_secondPlayerData, secondName, secondColor);
-			swapColor();
+			resetColor();
 		}
 		
 		private function updatePlayer(player:PlayerData, name:String, color:uint):void {
 			player.name = name;
 			player.color = color;
+		}
+		
+		private function resetColor():void {
+			_currentColor = _firstPlayerData.color;
 		}
 		
 		public function swapColor():void {
